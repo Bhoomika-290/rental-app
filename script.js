@@ -5,7 +5,7 @@ let currentEquipment = null;
 let equipmentData = [];
 let filteredEquipment = [];
 
-// Equipment Data with Multiple Image Views
+// Equipment Data with Real Image Paths
 const equipmentDatabase = [
     {
         id: 1,
@@ -26,9 +26,10 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 11111",
         specifications: "50 HP, 4WD, Power Steering",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='tractorGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23228B22'/><stop offset='100%' stop-color='%23006400'/></linearGradient></defs><rect fill='%2387CEEB' width='400' height='300'/><rect fill='url(%23tractorGrad)' x='50' y='100' width='300' height='120' rx='20'/><circle fill='%23333' cx='100' cy='250' r='35' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='300' cy='250' r='35' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='100' cy='250' r='20'/><circle fill='%23555' cx='300' cy='250' r='20'/><rect fill='%23FFD700' x='80' y='80' width='240' height='30' rx='10'/><rect fill='%23FF6347' x='180' y='110' width='40' height='60' rx='5'/><text x='200' y='140' text-anchor='middle' fill='white' font-size='12' font-weight='bold'>JOHN DEERE</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='tractorSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23228B22'/><stop offset='100%' stop-color='%23006400'/></linearGradient></defs><rect fill='%23F0E68C' width='400' height='300'/><path fill='url(%23tractorSide)' d='M50,120 L320,120 L320,200 L280,200 L280,180 L120,180 L120,200 L50,200 Z'/><circle fill='%23333' cx='100' cy='240' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='270' cy='240' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='100' cy='240' r='18'/><circle fill='%23555' cx='270' cy='240' r='18'/><rect fill='%23FFD700' x='60' y='100' width='200' height='25' rx='8'/><rect fill='%23FF6347' x='280' y='130' width='30' height='50' rx='5'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='tractorFront' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23228B22'/><stop offset='100%' stop-color='%23006400'/></linearGradient></defs><rect fill='%23E6E6FA' width='400' height='300'/><rect fill='url(%23tractorFront)' x='120' y='80' width='160' height='140' rx='15'/><circle fill='%23333' cx='150' cy='250' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='250' cy='250' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='150' cy='250' r='15'/><circle fill='%23555' cx='250' cy='250' r='15'/><rect fill='%23FFD700' x='130' y='60' width='140' height='25' rx='8'/><rect fill='%23FF6347' x='180' y='90' width='40' height='60' rx='5'/><rect fill='%234169E1' x='185' y='95' width='30' height='25' rx='3'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Front View</text></svg>"
+            "https://www.deere.co.in/assets/images/region-1/products/tractors/e-series-tractors/john-deere-india-trem-4-5310-left-angle.png", // Green tractor main view
+            "https://www.91tractors.com/_next/image?url=https:%2F%2Fimages.91trucks.com%2Ftractors%2Fmodels%2F31%2F480%2Fjohn-deere-5310-gearpro-983528694.jpg%3Fw%3D640%26v%3D1235&w=640&q=75", // Tractor side view
+            "https://www.deere.co.in/assets/images/region-1/products/tractors/e-series-tractors/john-deere-india-trem%204-5310-front.png", // Tractor front view
+            "https://www.deere.co.in/assets/images/region-1/products/tractors/trem-four-india-products/trem-4-5310-right-angle.png" 
         ]
     },
     {
@@ -50,8 +51,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 22222",
         specifications: "Self-propelled, 120 HP engine, 4m cutting width",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harvesterGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23FF6347'/><stop offset='100%' stop-color='%23DC143C'/></linearGradient></defs><rect fill='%23FFE4E1' width='400' height='300'/><rect fill='url(%23harvesterGrad)' x='30' y='80' width='340' height='140' rx='15'/><circle fill='%23333' cx='80' cy='250' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='320' cy='250' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='80' cy='250' r='18'/><circle fill='%23555' cx='320' cy='250' r='18'/><rect fill='%23FFD700' x='40' y='60' width='320' height='25' rx='8'/><rect fill='%23FFA500' x='60' y='90' width='280' height='20' rx='5'/><rect fill='%234169E1' x='150' y='120' width='100' height='40' rx='5'/><path fill='%23228B22' d='M50,220 L100,210 L150,220 L200,210 L250,220 L300,210 L350,220 L350,240 L50,240 Z'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harvesterSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23FF6347'/><stop offset='100%' stop-color='%23DC143C'/></linearGradient></defs><rect fill='%23F0F8FF' width='400' height='300'/><path fill='url(%23harvesterSide)' d='M40,100 L360,100 L360,180 L320,180 L320,160 L120,160 L120,180 L80,180 L80,200 L40,200 Z'/><circle fill='%23333' cx='100' cy='240' r='28' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='300' cy='240' r='28' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='100' cy='240' r='16'/><circle fill='%23555' cx='300' cy='240' r='16'/><rect fill='%23FFD700' x='50' y='80' width='300' height='25' rx='8'/><rect fill='%234169E1' x='150' y='110' width='100' height='35' rx='5'/><path fill='%23228B22' d='M60,200 L340,200 L340,220 L60,220 Z'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://www.mahindratractor.com/sites/default/files/2023-08/Harvester_799x618.webp",
+            "https://assets.tractorjunction.com/tractor-junction/assets/images/images/implementTractor/harvestmaster-h12-4wd-1649325881.jpg",
+            "https://2.imimg.com/data2/MK/JX/IMFCP-3650544/ks-513-td-tractor-driven-combine-harvester-with-mahindra-arjun-1000x1000.jpg"
         ]
     },
     {
@@ -73,8 +75,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 33333",
         specifications: "9-tine cultivator, adjustable depth control",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='cultivatorGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23DEB887' width='400' height='300'/><rect fill='url(%23cultivatorGrad)' x='50' y='100' width='300' height='80' rx='10'/><g stroke='%23333' stroke-width='4' fill='%23333'><line x1='100' y1='180' x2='100' y2='250'/><line x1='130' y1='180' x2='130' y2='260'/><line x1='160' y1='180' x2='160' y2='250'/><line x1='190' y1='180' x2='190' y2='260'/><line x1='220' y1='180' x2='220' y2='250'/><line x1='250' y1='180' x2='250' y2='260'/><line x1='280' y1='180' x2='280' y2='250'/><line x1='310' y1='180' x2='310' y2='260'/><line x1='340' y1='180' x2='340' y2='250'/></g><g fill='%23654321'><polygon points='95,250 105,250 100,270'/><polygon points='125,260 135,260 130,280'/><polygon points='155,250 165,250 160,270'/><polygon points='185,260 195,260 190,280'/><polygon points='215,250 225,250 220,270'/><polygon points='245,260 255,260 250,280'/><polygon points='275,250 285,250 280,270'/><polygon points='305,260 315,260 310,280'/><polygon points='335,250 345,250 340,270'/></g><rect fill='%23FFD700' x='60' y='80' width='280' height='25' rx='8'/><text x='200' y='150' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>CULTIVATOR</text><text x='200' y='290' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='cultivatorSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23F5DEB3' width='400' height='300'/><rect fill='url(%23cultivatorSide)' x='80' y='120' width='240' height='60' rx='8'/><g stroke='%23333' stroke-width='3' fill='%23333'><path d='M100,180 L100,220 L95,240 L105,240 Z'/><path d='M140,180 L140,230 L135,250 L145,250 Z'/><path d='M180,180 L180,220 L175,240 L185,240 Z'/><path d='M220,180 L220,230 L215,250 L225,250 Z'/><path d='M260,180 L260,220 L255,240 L265,240 Z'/><path d='M300,180 L300,230 L295,250 L305,250 Z'/></g><rect fill='%23FFD700' x='90' y='100' width='220' height='25' rx='8'/><circle fill='%23666' cx='120' cy='110' r='8'/><circle fill='%23666' cx='280' cy='110' r='8'/><text x='200' y='290' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://5.imimg.com/data5/SELLER/Default/2023/10/351985611/VF/RT/MC/4114636/agriculture-tractor-cultivator-1000x1000.png",
+            "https://5.imimg.com/data5/SELLER/Default/2022/10/CP/PY/KD/532026/01-1000x1000.jpg",
+            "https://5.imimg.com/data5/AN/NK/ZN/SELLER-288604/mini-cultivator-box-type-frame-500x500.png"
         ]
     },
     {
@@ -96,8 +99,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 44444",
         specifications: "6-row seeder, adjustable seed rate",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='seederGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2332CD32'/><stop offset='100%' stop-color='%23228B22'/></linearGradient></defs><rect fill='%2387CEEB' width='400' height='300'/><rect fill='url(%23seederGrad)' x='50' y='100' width='300' height='80' rx='8'/><circle fill='%23333' cx='100' cy='220' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='220' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='100' cy='220' r='15'/><circle fill='%23555' cx='300' cy='220' r='15'/><rect fill='%23FFD700' x='60' y='80' width='280' height='25' rx='8'/><g fill='%23FFA500'><rect x='80' y='110' width='40' height='60' rx='5'/><rect x='130' y='110' width='40' height='60' rx='5'/><rect x='180' y='110' width='40' height='60' rx='5'/><rect x='230' y='110' width='40' height='60' rx='5'/><rect x='280' y='110' width='40' height='60' rx='5'/></g><g fill='%23fff' opacity='0.8'><circle cx='100' cy='140' r='8'/><circle cx='150' cy='140' r='8'/><circle cx='200' cy='140' r='8'/><circle cx='250' cy='140' r='8'/><circle cx='300' cy='140' r='8'/></g><text x='200' y='155' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>SEEDER</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='seederSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2332CD32'/><stop offset='100%' stop-color='%23228B22'/></linearGradient></defs><rect fill='%23F0FFF0' width='400' height='300'/><rect fill='url(%23seederSide)' x='80' y='120' width='240' height='60' rx='8'/><circle fill='%23333' cx='120' cy='220' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='280' cy='220' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='120' cy='220' r='13'/><circle fill='%23555' cx='280' cy='220' r='13'/><rect fill='%23FFD700' x='90' y='100' width='220' height='25' rx='8'/><g fill='%23FFA500'><rect x='100' y='130' width='30' height='40' rx='3'/><rect x='140' y='130' width='30' height='40' rx='3'/><rect x='180' y='130' width='30' height='40' rx='3'/><rect x='220' y='130' width='30' height='40' rx='3'/><rect x='260' y='130' width='30' height='40' rx='3'/></g><g stroke='%23333' stroke-width='2'><line x1='115' y1='170' x2='115' y2='200'/><line x1='155' y1='170' x2='155' y2='200'/><line x1='195' y1='170' x2='195' y2='200'/><line x1='235' y1='170' x2='235' y2='200'/><line x1='275' y1='170' x2='275' y2='200'/></g><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://5.imimg.com/data5/CF/TC/YW/SELLER-3219172/dsr-direct-seeded-rice-rice-seeder-1000x1000.jpg",
+            "https://5.imimg.com/data5/IX/TX/UQ/SELLER-3219172/dsr-direct-seeded-rice-rice-seeder-500x500.jpg",
+            "https://5.imimg.com/data5/YR/HW/YA/SELLER-3219172/dsr-direct-seeded-rice-rice-seeder-1000x1000.jpg"
         ]
     },
     {
@@ -119,8 +123,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 55555",
         specifications: "3-bottom reversible plough, adjustable width",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='ploughGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23DEB887' width='400' height='300'/><rect fill='url(%23ploughGrad)' x='50' y='120' width='300' height='40' rx='5'/><g fill='%23333'><path d='M100,160 L100,210 L120,220 L130,200 L120,180 Z'/><path d='M150,160 L150,210 L170,220 L180,200 L170,180 Z'/><path d='M200,160 L200,210 L220,220 L230,200 L220,180 Z'/><path d='M250,160 L250,210 L270,220 L280,200 L270,180 Z'/><path d='M300,160 L300,210 L320,220 L330,200 L320,180 Z'/></g><rect fill='%23FFD700' x='60' y='100' width='280' height='25' rx='8'/><circle fill='%23666' cx='80' cy='135' r='8'/><circle fill='%23666' cx='320' cy='135' r='8'/><g fill='%23A0522D'><rect x='110' y='190' width='15' height='30' rx='3'/><rect x='160' y='190' width='15' height='30' rx='3'/><rect x='210' y='190' width='15' height='30' rx='3'/><rect x='260' y='190' width='15' height='30' rx='3'/><rect x='310' y='190' width='15' height='30' rx='3'/></g><text x='200' y='145' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>PLOUGH</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='ploughSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23F5DEB3' width='400' height='300'/><rect fill='url(%23ploughSide)' x='80' y='130' width='240' height='35' rx='5'/><g fill='%23333'><path d='M120,165 L120,200 L135,210 L140,190 Z'/><path d='M180,165 L180,200 L195,210 L200,190 Z'/><path d='M240,165 L240,200 L255,210 L260,190 Z'/></g><rect fill='%23FFD700' x='90' y='110' width='220' height='25' rx='8'/><circle fill='%23666' cx='110' cy='122' r='6'/><circle fill='%23666' cx='290' cy='122' r='6'/><g fill='%23A0522D'><rect x='125' y='185' width='12' height='25' rx='2'/><rect x='185' y='185' width='12' height='25' rx='2'/><rect x='245' y='185' width='12' height='25' rx='2'/></g><line stroke='%23333' stroke-width='2' x1='100' y1='140' x2='300' y2='140'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://static.vecteezy.com/system/resources/previews/036/396/295/non_2x/semi-mounted-farm-plough-3d-rendering-on-white-background-photo.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/036/399/592/small_2x/semi-mounted-farm-plough-3d-rendering-on-white-background-photo.jpg",
+            "https://www.shutterstock.com/image-illustration/semi-mounted-plough-farm-equipment-260nw-2219358647.jpg"
         ]
     },
     {
@@ -142,7 +147,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 66666",
         specifications: "6-foot working width, PTO driven",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='rotavatorGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23FF4500'/><stop offset='100%' stop-color='%23DC143C'/></linearGradient></defs><rect fill='%23FFE4B5' width='400' height='300'/><rect fill='url(%23rotavatorGrad)' x='40' y='110' width='320' height='70' rx='10'/><g fill='%23333'><circle cx='80' cy='200' r='12'/><circle cx='120' cy='200' r='12'/><circle cx='160' cy='200' r='12'/><circle cx='200' cy='200' r='12'/><circle cx='240' cy='200' r='12'/><circle cx='280' cy='200' r='12'/><circle cx='320' cy='200' r='12'/></g><g fill='%23666'><rect x='70' y='185' width='20' height='30' rx='10'/><rect x='110' y='185' width='20' height='30' rx='10'/><rect x='150' y='185' width='20' height='30' rx='10'/><rect x='190' y='185' width='20' height='30' rx='10'/><rect x='230' y='185' width='20' height='30' rx='10'/><rect x='270' y='185' width='20' height='30' rx='10'/><rect x='310' y='185' width='20' height='30' rx='10'/></g><circle fill='%23333' cx='70' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='330' cy='240' r='20' stroke='%23666' stroke-width='2'/><rect fill='%23FFD700' x='50' y='90' width='300' height='25' rx='8'/><text x='200' y='150' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>ROTAVATOR</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>"
+            "https://assets.tractorjunction.com/tractor-junction/assets/images/images/implementTractor/supreme-33-1697546608.webp",
+            "https://international.sonalika.com/wp-content/uploads/2020/09/smart-series-img.jpg",
+            "https://5.imimg.com/data5/SELLER/Default/2022/1/QY/FJ/UH/127791644/tractor-operated-rotavator-1000x1000.jpg"
         ]
     },
     {
@@ -164,8 +171,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 77777",
         specifications: "Multi-crop thresher, 15 HP motor, 1200 kg/hr capacity",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='thresherGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23B8860B'/><stop offset='100%' stop-color='%23DAA520'/></linearGradient></defs><rect fill='%23FFFACD' width='400' height='300'/><rect fill='url(%23thresherGrad)' x='30' y='90' width='340' height='120' rx='12'/><circle fill='%23333' cx='80' cy='240' r='25' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='320' cy='240' r='25' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='80' cy='240' r='15'/><circle fill='%23555' cx='320' cy='240' r='15'/><rect fill='%23FFD700' x='40' y='70' width='320' height='25' rx='8'/><circle fill='%23CD853F' cx='200' cy='120' r='30' stroke='%238B4513' stroke-width='3'/><g fill='%238B4513' stroke='%238B4513' stroke-width='2'><line x1='185' y1='105' x2='215' y2='135'/><line x1='215' y1='105' x2='185' y2='135'/><line x1='200' y1='90' x2='200' y2='150'/><line x1='170' y1='120' x2='230' y2='120'/></g><rect fill='%23FF6347' x='250' y='110' width='80' height='40' rx='8'/><rect fill='%23228B22' x='70' y='110' width='80' height='40' rx='8'/><g fill='%238B4513' opacity='0.7'><rect x='60' y='170' width='20' height='30'/><rect x='100' y='170' width='20' height='30'/><rect x='140' y='170' width='20' height='30'/><rect x='180' y='170' width='20' height='30'/><rect x='220' y='170' width='20' height='30'/><rect x='260' y='170' width='20' height='30'/><rect x='300' y='170' width='20' height='30'/></g><text x='200' y='140' text-anchor='middle' fill='white' font-size='12' font-weight='bold'>THRESHER</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='thresherSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23B8860B'/><stop offset='100%' stop-color='%23DAA520'/></linearGradient></defs><rect fill='%23FFF8DC' width='400' height='300'/><rect fill='url(%23thresherSide)' x='50' y='110' width='300' height='80' rx='10'/><circle fill='%23333' cx='100' cy='230' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='230' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='100' cy='230' r='13'/><circle fill='%23555' cx='300' cy='230' r='13'/><rect fill='%23FFD700' x='60' y='90' width='280' height='25' rx='8'/><rect fill='%23CD853F' x='180' y='120' width='40' height='60' rx='5'/><rect fill='%23FF6347' x='250' y='130' width='60' height='30' rx='5'/><rect fill='%23228B22' x='90' y='130' width='60' height='30' rx='5'/><g fill='%238B4513' opacity='0.6'><rect x='80' y='190' width='15' height='25'/><rect x='110' y='190' width='15' height='25'/><rect x='140' y='190' width='15' height='25'/><rect x='170' y='190' width='15' height='25'/><rect x='200' y='190' width='15' height='25'/><rect x='230' y='190' width='15' height='25'/><rect x='260' y='190' width='15' height='25'/><rect x='290' y='190' width='15' height='25'/></g><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://th.bing.com/th/id/R.986eabe1b261ac3b50c811dee730a3a8?rik=lLixdD3cSnNoKQ&riu=http%3a%2f%2fwww.stubert.info%2fthresh-p%2fthreshing-14-03.jpg&ehk=knjjlnxfZdmQPQaK%2bId%2bQmusqq6UUcgOxfjGf2mpKEQ%3d&risl=&pid=ImgRaw&r=0",
+            "https://tse3.mm.bing.net/th/id/OIP.QffgF0iQjF0h4a-xwa21SwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
+            "https://i.etsystatic.com/14004058/r/il/bbf6af/4312748845/il_340x270.4312748845_fhnt.jpg"
         ]
     },
     {
@@ -187,8 +195,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 88888",
         specifications: "500L tank capacity, 40L/min flow rate, boom width 12m",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='sprayerGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%234169E1'/><stop offset='100%' stop-color='%231E90FF'/></linearGradient></defs><rect fill='%23E6F3FF' width='400' height='300'/><rect fill='url(%23sprayerGrad)' x='50' y='120' width='300' height='80' rx='40'/><circle fill='%23333' cx='100' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='100' cy='240' r='12'/><circle fill='%23555' cx='300' cy='240' r='12'/><rect fill='%23FFD700' x='60' y='100' width='280' height='25' rx='8'/><rect fill='%23FFA500' x='180' y='130' width='40' height='50' rx='5'/><g stroke='%2332CD32' stroke-width='3' fill='none'><line x1='80' y1='80' x2='320' y2='80'/><line x1='90' y1='80' x2='90' y2='60'/><line x1='120' y1='80' x2='120' y2='60'/><line x1='150' y1='80' x2='150' y2='60'/><line x1='180' y1='80' x2='180' y2='60'/><line x1='210' y1='80' x2='210' y2='60'/><line x1='240' y1='80' x2='240' y2='60'/><line x1='270' y1='80' x2='270' y2='60'/><line x1='300' y1='80' x2='300' y2='60'/><line x1='310' y1='80' x2='310' y2='60'/></g><g fill='%2332CD32' opacity='0.6'><circle cx='90' cy='55' r='3'/><circle cx='120' cy='55' r='3'/><circle cx='150' cy='55' r='3'/><circle cx='180' cy='55' r='3'/><circle cx='210' cy='55' r='3'/><circle cx='240' cy='55' r='3'/><circle cx='270' cy='55' r='3'/><circle cx='300' cy='55' r='3'/><circle cx='310' cy='55' r='3'/></g><text x='200' y='165' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>SPRAYER</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='sprayerSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%234169E1'/><stop offset='100%' stop-color='%231E90FF'/></linearGradient></defs><rect fill='%23F0F8FF' width='400' height='300'/><ellipse fill='url(%23sprayerSide)' cx='200' cy='150' rx='150' ry='40'/><circle fill='%23333' cx='120' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='280' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='120' cy='230' r='11'/><circle fill='%23555' cx='280' cy='230' r='11'/><rect fill='%23FFD700' x='70' y='90' width='260' height='20' rx='10'/><rect fill='%23FFA500' x='180' y='120' width='40' height='40' rx='5'/><g stroke='%2332CD32' stroke-width='2' fill='none'><line x1='100' y1='70' x2='300' y2='70'/><g opacity='0.8'><line x1='120' y1='70' x2='120' y2='50'/><line x1='150' y1='70' x2='150' y2='45'/><line x1='180' y1='70' x2='180' y2='50'/><line x1='210' y1='70' x2='210' y2='45'/><line x1='240' y1='70' x2='240' y2='50'/><line x1='270' y1='70' x2='270' y2='45'/></g></g><g fill='%2332CD32' opacity='0.5'><circle cx='120' cy='45' r='2'/><circle cx='150' cy='40' r='2'/><circle cx='180' cy='45' r='2'/><circle cx='210' cy='40' r='2'/><circle cx='240' cy='45' r='2'/><circle cx='270' cy='40' r='2'/></g><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://tse3.mm.bing.net/th/id/OIP.gTLEkT81DgGuOKmV0eT4lAHaE8?w=768&h=512&rs=1&pid=ImgDetMain&o=7&rm=3",
+            "https://tse2.mm.bing.net/th/id/OIP.gjrr3ZXwbQNRa-odaJgTcgAAAA?w=450&h=300&rs=1&pid=ImgDetMain&o=7&rm=3",
+            "https://tse1.mm.bing.net/th/id/OIP.zVSmWnqNkrvZfkL2X4DrOwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
         ]
     },
     {
@@ -210,8 +219,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 99999",
         specifications: "20-disc harrow, 7-foot working width, hydraulic lift",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harrowGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23696969'/><stop offset='100%' stop-color='%232F4F4F'/></linearGradient></defs><rect fill='%23D3D3D3' width='400' height='300'/><rect fill='url(%23harrowGrad)' x='40' y='100' width='320' height='60' rx='8'/><g fill='%23333' stroke='%23000' stroke-width='2'><circle cx='80' cy='190' r='25'/><circle cx='120' cy='190' r='25'/><circle cx='160' cy='190' r='25'/><circle cx='200' cy='190' r='25'/><circle cx='240' cy='190' r='25'/><circle cx='280' cy='190' r='25'/><circle cx='320' cy='190' r='25'/></g><g fill='%23808080'><circle cx='80' cy='190' r='15'/><circle cx='120' cy='190' r='15'/><circle cx='160' cy='190' r='15'/><circle cx='200' cy='190' r='15'/><circle cx='240' cy='190' r='15'/><circle cx='280' cy='190' r='15'/><circle cx='320' cy='190' r='15'/></g><g fill='%23000' opacity='0.3'><path d='M75,185 Q80,190 85,185 Q80,195 75,190 Z'/><path d='M115,185 Q120,190 125,185 Q120,195 115,190 Z'/><path d='M155,185 Q160,190 165,185 Q160,195 155,190 Z'/><path d='M195,185 Q200,190 205,185 Q200,195 195,190 Z'/><path d='M235,185 Q240,190 245,185 Q240,195 235,190 Z'/><path d='M275,185 Q280,190 285,185 Q280,195 275,190 Z'/><path d='M315,185 Q320,190 325,185 Q320,195 315,190 Z'/></g><circle fill='%23333' cx='80' cy='240' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='320' cy='240' r='18' stroke='%23666' stroke-width='2'/><rect fill='%23FFD700' x='50' y='80' width='300' height='25' rx='8'/><text x='200' y='135' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>DISC HARROW</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harrowSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23696969'/><stop offset='100%' stop-color='%232F4F4F'/></linearGradient></defs><rect fill='%23F5F5F5' width='400' height='300'/><rect fill='url(%23harrowSide)' x='60' y='120' width='280' height='50' rx='8'/><g fill='%23333' stroke='%23000' stroke-width='2'><circle cx='100' cy='200' r='20'/><circle cx='140' cy='200' r='20'/><circle cx='180' cy='200' r='20'/><circle cx='220' cy='200' r='20'/><circle cx='260' cy='200' r='20'/><circle cx='300' cy='200' r='20'/></g><g fill='%23808080'><circle cx='100' cy='200' r='12'/><circle cx='140' cy='200' r='12'/><circle cx='180' cy='200' r='12'/><circle cx='220' cy='200' r='12'/><circle cx='260' cy='200' r='12'/><circle cx='300' cy='200' r='12'/></g><circle fill='%23333' cx='100' cy='240' r='15' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='240' r='15' stroke='%23666' stroke-width='2'/><rect fill='%23FFD700' x='70' y='100' width='260' height='25' rx='8'/><rect fill='%23FFA500' x='180' y='130' width='40' height='30' rx='5'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://content.storefront7.co.za/stores/za.co.storefront7.rovic/products/heavy-duty-offset-disc-harrows/pictures/no.1-rome-vvu5.jpg?mode=Default&format=jpg&width=1026&height=1026",
+            "https://tse1.mm.bing.net/th/id/OIP.k3GkKO_j-wyV_uiK_NshEAHaEz?pid=Api&P=0&h=220",
+            "https://content.storefront7.co.za/stores/za.co.storefront7.rovic/products/heavy-duty-offset-disc-harrows/pictures/h.d.-offset-poly-disc-harrows-ry7r_od2u.jpg?width=1026&height=1026"
         ]
     },
     {
@@ -233,8 +243,9 @@ const equipmentDatabase = [
         ownerPhone: "+91 98765 10101",
         specifications: "5 HP motor, 1000 GPH capacity, self-priming",
         images: [
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='pumpGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230080FF'/><stop offset='100%' stop-color='%230066CC'/></linearGradient></defs><rect fill='%23E6F2FF' width='400' height='300'/><rect fill='url(%23pumpGrad)' x='80' y='120' width='240' height='80' rx='15'/><circle fill='%23333' cx='120' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='280' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='120' cy='240' r='12'/><circle fill='%23555' cx='280' cy='240' r='12'/><rect fill='%23FFD700' x='90' y='100' width='220' height='25' rx='8'/><circle fill='%2300BFFF' cx='200' cy='160' r='30' stroke='%230080FF' stroke-width='3'/><g fill='%230066CC'><path d='M185,145 Q200,150 215,145 Q200,175 185,170 Q200,165 215,170 Q200,140 185,145'/></g><rect fill='%23FF6347' x='250' y='140' width='50' height='40' rx='8'/><rect fill='%2332CD32' x='100' y='140' width='50' height='40' rx='8'/><g stroke='%2300BFFF' stroke-width='4' fill='none' opacity='0.7'><path d='M50,80 Q70,70 90,80'/><path d='M310,80 Q330,70 350,80'/><path d='M50,90 Q70,80 90,90'/><path d='M310,90 Q330,80 350,90'/></g><text x='200' y='170' text-anchor='middle' fill='white' font-size='12' font-weight='bold'>PUMP</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
-            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='pumpSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230080FF'/><stop offset='100%' stop-color='%230066CC'/></linearGradient></defs><rect fill='%23F0F8FF' width='400' height='300'/><rect fill='url(%23pumpSide)' x='100' y='130' width='200' height='60' rx='12'/><circle fill='%23333' cx='130' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='270' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='130' cy='230' r='11'/><circle fill='%23555' cx='270' cy='230' r='11'/><rect fill='%23FFD700' x='110' y='110' width='180' height='25' rx='8'/><circle fill='%2300BFFF' cx='200' cy='160' r='25' stroke='%230080FF' stroke-width='2'/><rect fill='%23FF6347' x='230' y='145' width='40' height='30' rx='5'/><rect fill='%2332CD32' x='130' y='145' width='40' height='30' rx='5'/><g stroke='%2300BFFF' stroke-width='3' fill='none' opacity='0.6'><path d='M80,90 Q90,80 100,90'/><path d='M300,90 Q310,80 320,90'/></g><path fill='%230066CC' d='M190,150 Q200,155 210,150 Q200,170 190,165 Q200,160 210,165 Q200,145 190,150'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+            "https://thumbs.dreamstime.com/b/irrigation-rice-fields-using-pump-wells-technique-pumping-water-ground-to-flow-rice-fields-239245040.jpg",
+            "https://img.myloview.com/murals/irrigation-of-rice-fields-using-pump-wells-with-the-technique-of-pumping-water-from-the-ground-to-flow-into-the-rice-fields-the-pumping-station-where-water-is-pumped-from-a-irrigation-canal-700-284915476.jpg",
+            "https://novo3ds.in/wp-content/uploads/2022/11/AG281_Water_pump_3.jpg"
         ]
     }
 ];
@@ -244,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
     equipmentData = [...equipmentDatabase];
     filteredEquipment = [...equipmentData];
     initializeApp();
+    optimizeImages();
 });
 
 function initializeApp() {
@@ -320,7 +332,7 @@ function updateLanguage() {
     });
 }
 
-// Equipment Management
+// Enhanced Equipment Management with Real Images
 function updateEquipmentGrid() {
     const homeGrid = document.getElementById('equipmentGrid');
     const allGrid = document.getElementById('allEquipmentGrid');
@@ -331,6 +343,9 @@ function updateEquipmentGrid() {
     if (allGrid) {
         allGrid.innerHTML = createEquipmentCards(filteredEquipment);
     }
+    
+    // Initialize lazy loading after content is added
+    setTimeout(optimizeImages, 100);
 }
 
 function createEquipmentCards(equipment) {
@@ -343,12 +358,25 @@ function createEquipmentCards(equipment) {
     return equipment.map(item => `
         <div class="equipment-card">
             <div class="equipment-slider" id="slider-${item.id}">
-                ${item.images.map((img, index) => `
-                    <img src="${img}" alt="${getItemName(item)}" class="${index === 0 ? 'active' : ''}" />
+                ${item.images.map((imgSrc, index) => `
+                    <div class="slide ${index === 0 ? 'active' : ''}" data-slide="${index}">
+                        <img src="${imgSrc}" 
+                             alt="${getItemName(item)} - View ${index + 1}" 
+                             onerror="this.src='images/placeholders/equipment-placeholder.jpg'; this.classList.add('fallback-image')"
+                             loading="lazy" />
+                        <div class="slide-indicator">${index + 1}/${item.images.length}</div>
+                    </div>
                 `).join('')}
                 ${item.images.length > 1 ? `
-                    <button class="slider-nav slider-prev" onclick="changeSlide(${item.id}, -1)">‹</button>
-                    <button class="slider-nav slider-next" onclick="changeSlide(${item.id}, 1)">›</button>
+                    <button class="slider-nav slider-prev" onclick="changeSlide(${item.id}, -1)" aria-label="Previous image">‹</button>
+                    <button class="slider-nav slider-next" onclick="changeSlide(${item.id}, 1)" aria-label="Next image">›</button>
+                    <div class="slider-dots">
+                        ${item.images.map((_, index) => `
+                            <button class="dot ${index === 0 ? 'active' : ''}" 
+                                    onclick="goToSlide(${item.id}, ${index})" 
+                                    aria-label="Go to image ${index + 1}"></button>
+                        `).join('')}
+                    </div>
                 ` : ''}
             </div>
             <div class="equipment-info">
@@ -362,11 +390,20 @@ function createEquipmentCards(equipment) {
                     }
                 </div>
                 <p>${getItemDescription(item)}</p>
-                <div style="margin-top: 1rem;">
-                    <small><strong>${getTranslation('Year', 'वर्ष', 'वर्ष')}:</strong> ${item.year}</small><br>
-                    <small><strong>${getTranslation('Owner', 'मालिक', 'मालक')}:</strong> ${item.owner}</small>
+                <div class="equipment-details">
+                    <div class="detail-item">
+                        <strong>${getTranslation('Year', 'वर्ष', 'वर्ष')}:</strong> ${item.year}
+                    </div>
+                    <div class="detail-item">
+                        <strong>${getTranslation('Owner', 'मालिक', 'मालक')}:</strong> ${item.owner}
+                    </div>
+                    <div class="detail-item">
+                        <strong>${getTranslation('Specifications', 'विशेषताएं', 'वैशिष्ट्ये')}:</strong> ${item.specifications}
+                    </div>
                 </div>
-                <button class="btn btn-primary" onclick="bookEquipment(${item.id})" ${!item.available ? 'disabled' : ''} style="margin-top: 1rem; width: 100%;">
+                <button class="btn btn-primary equipment-book-btn" 
+                        onclick="bookEquipment(${item.id})" 
+                        ${!item.available ? 'disabled' : ''}>
                     ${getTranslation('Book Now', 'बुक करें', 'बुक करा')}
                 </button>
             </div>
@@ -398,23 +435,66 @@ function getTranslation(en, hi, mr) {
            en;
 }
 
-// Image Slider
+// Enhanced Image Slider with Dot Navigation
 function changeSlide(equipmentId, direction) {
     const slider = document.getElementById(`slider-${equipmentId}`);
     if (!slider) return;
 
-    const images = slider.querySelectorAll('img');
-    if (images.length <= 1) return;
+    const slides = slider.querySelectorAll('.slide');
+    const dots = slider.querySelectorAll('.dot');
+    if (slides.length <= 1) return;
 
-    let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+    let currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
     
-    images[currentIndex].classList.remove('active');
+    slides[currentIndex].classList.remove('active');
+    if (dots.length > 0) dots[currentIndex].classList.remove('active');
+    
     currentIndex += direction;
     
-    if (currentIndex >= images.length) currentIndex = 0;
-    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= slides.length) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = slides.length - 1;
     
-    images[currentIndex].classList.add('active');
+    slides[currentIndex].classList.add('active');
+    if (dots.length > 0) dots[currentIndex].classList.add('active');
+}
+
+// Direct slide navigation via dots
+function goToSlide(equipmentId, slideIndex) {
+    const slider = document.getElementById(`slider-${equipmentId}`);
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll('.slide');
+    const dots = slider.querySelectorAll('.dot');
+    
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    if (slides[slideIndex]) {
+        slides[slideIndex].classList.add('active');
+        if (dots[slideIndex]) dots[slideIndex].classList.add('active');
+    }
+}
+
+// Image optimization and lazy loading
+function optimizeImages() {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => {
+            img.classList.add('lazy');
+            imageObserver.observe(img);
+        });
+    }
 }
 
 // Page Navigation
@@ -436,7 +516,7 @@ function showModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Prevent background scroll
+        document.body.style.overflow = 'hidden';
     }
 }
 
@@ -444,7 +524,7 @@ function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restore scroll
+        document.body.style.overflow = 'auto';
     }
 }
 
@@ -461,7 +541,6 @@ function login(event) {
         return;
     }
     
-    // Simulate login
     currentUser = {
         email: email,
         type: userType,
@@ -496,7 +575,6 @@ function register(event) {
         return;
     }
     
-    // Simulate registration
     currentUser = {
         name: name,
         email: email,
@@ -611,7 +689,7 @@ function calculateBookingTotal() {
     const days = Math.ceil((to - from) / (1000 * 60 * 60 * 24));
     const dailyRate = currentEquipment.price;
     const subtotal = days * dailyRate;
-    const tax = subtotal * 0.18; // 18% GST
+    const tax = subtotal * 0.18;
     const total = subtotal + tax;
     
     calculationDiv.innerHTML = `
@@ -666,7 +744,6 @@ function confirmBooking(event) {
     const days = Math.ceil((to - from) / (1000 * 60 * 60 * 24));
     const total = Math.round((days * currentEquipment.price) * 1.18);
     
-    // Update equipment availability
     const equipmentIndex = equipmentData.findIndex(e => e.id === currentEquipment.id);
     if (equipmentIndex !== -1) {
         equipmentData[equipmentIndex].available = false;
@@ -684,7 +761,6 @@ function confirmBooking(event) {
         'success'
     );
     
-    // Reset form
     document.getElementById('bookingForm').reset();
 }
 
@@ -702,7 +778,7 @@ function searchEquipment(event) {
         const matchesType = !type || item.category === type;
         const matchesLocation = !location || item.location.toLowerCase().includes(location);
         const matchesPrice = item.price <= maxPrice;
-        const matchesAvailability = item.available; // Only show available equipment in search
+        const matchesAvailability = item.available;
         
         return matchesType && matchesLocation && matchesPrice && matchesAvailability;
     });
@@ -728,14 +804,13 @@ function filterEquipment() {
         return !category || item.category === category;
     });
     
-    // Sort equipment
     filteredEquipment.sort((a, b) => {
         switch (sortBy) {
             case 'price':
                 return a.price - b.price;
             case 'availability':
                 return b.available - a.available;
-            default: // name
+            default:
                 return a.name.localeCompare(b.name);
         }
     });
@@ -752,11 +827,9 @@ function addEquipment(event) {
         return;
     }
     
-    // In a real app, this would send data to a server
     closeModal('addEquipmentModal');
     showNotification(getTranslation('Equipment added successfully!', 'उपकरण सफलतापूर्वक जोड़ा गया!', 'उपकरण यशस्वीरित्या जोडले!'), 'success');
     
-    // Reset form
     document.getElementById('addEquipmentForm').reset();
 }
 
@@ -787,7 +860,6 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(notification);
     
-    // Auto remove after 5 seconds
     setTimeout(() => {
         if (notification.parentElement) {
             notification.remove();
@@ -800,7 +872,6 @@ function resetFilters() {
     filteredEquipment = [...equipmentData];
     updateEquipmentGrid();
     
-    // Reset filter controls
     const categoryFilter = document.getElementById('categoryFilter');
     const sortFilter = document.getElementById('sortFilter');
     
