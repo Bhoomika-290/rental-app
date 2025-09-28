@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmRent - Equipment Rental Platform</title>
+    <title>AgriRent - Equipment Rental Platform</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚜</text></svg>">
 </head>
@@ -11,12 +11,13 @@
     <!-- Header -->
     <header>
         <nav class="container">
-            <div class="logo">🚜 FarmRent</div>
+            <div class="logo">🚜 AgriRent</div>
             <ul class="nav-links">
                 <li><a href="#" onclick="showPage('home')" data-en="Home" data-hi="होम" data-mr="मुख्यपृष्ठ">Home</a></li>
                 <li><a href="#" onclick="showPage('equipment')" data-en="Equipment" data-hi="उपकरण" data-mr="उपकरणे">Equipment</a></li>
                 <li><a href="#" onclick="showPage('about')" data-en="About" data-hi="हमारे बारे में" data-mr="आमच्याबद्दल">About</a></li>
                 <li><a href="#" onclick="showPage('contact')" data-en="Contact" data-hi="संपर्क" data-mr="संपर्क">Contact</a></li>
+                <li id="dashboardNavItem" class="hidden"><a href="#" onclick="goToDashboard()" data-en="Dashboard" data-hi="डैशबोर्ड" data-mr="डॅशबोर्ड">Dashboard</a></li>
             </ul>
             <div class="auth-buttons">
                 <div class="language-switcher">
@@ -26,11 +27,17 @@
                         <option value="mr">मराठी</option>
                     </select>
                 </div>
+                <div class="nav-controls">
+                    <button id="backButton" class="btn btn-outline btn-back hidden" onclick="goBack()" data-en="← Back" data-hi="← वापस" data-mr="← परत">
+                        ← Back
+                    </button>
+                </div>
                 <div id="authButtons">
                     <a href="#" class="btn btn-secondary" onclick="showModal('loginModal')" data-en="Login" data-hi="लॉगिन" data-mr="लॉगिन">Login</a>
                     <a href="#" class="btn btn-primary" onclick="showModal('registerModal')" data-en="Register" data-hi="पंजीकरण" data-mr="नोंदणी">Register</a>
                 </div>
                 <div id="userMenu" class="hidden">
+                    <a href="#" class="dashboard-mobile-btn hidden" onclick="goToDashboard()" data-en="Dashboard" data-hi="डैशबोर्ड" data-mr="डॅशबोर्ड">Dashboard</a>
                     <span id="userName" class="user-name"></span>
                     <button class="btn btn-secondary" onclick="logout()" data-en="Logout" data-hi="लॉगआउट" data-mr="लॉगआउट">Logout</button>
                 </div>
@@ -157,10 +164,10 @@
     <div id="aboutPage" class="page hidden">
         <section class="about-section page-section">
             <div class="container">
-                <h1 class="page-title" data-en="About FarmRent" data-hi="फार्मरेंट के बारे में" data-mr="फार्मरेंट बद्दल">About FarmRent</h1>
+                <h1 class="page-title" data-en="About AgriRent" data-hi="एग्रीरेंट के बारे में" data-mr="एग्रीरेंट बद्दल">About AgriRent</h1>
                 <div class="about-content">
                     <div class="about-text">
-                        <p data-en="FarmRent is a revolutionary platform connecting farmers with modern agricultural equipment. We believe that every farmer should have access to quality machinery to improve their productivity and livelihood." data-hi="फार्मरेंट एक क्रांतिकारी प्लेटफॉर्म है जो किसानों को आधुनिक कृषि उपकरणों से जोड़ता है। हमारा मानना है कि हर किसान को अपनी उत्पादकता और आजीविका में सुधार के लिए गुणवत्तापूर्ण मशीनरी तक पहुंच होनी चाहिए।" data-mr="फार्मरेंट हे एक क्रांतिकारी प्लॅटफॉर्म आहे जे शेतकऱ्यांना आधुनिक कृषी उपकरणांशी जोडते. आमचा विश्वास आहे की प्रत्येक शेतकऱ्याला त्यांची उत्पादकता आणि जीविका सुधारण्यासाठी दर्जेदार यंत्रे उपलब्ध असावीत.">FarmRent is a revolutionary platform connecting farmers with modern agricultural equipment.</p>
+                        <p data-en="AgriRent is a revolutionary platform connecting farmers with modern agricultural equipment. We believe that every farmer should have access to quality machinery to improve their productivity and livelihood." data-hi="एग्रीरेंट एक क्रांतिकारी प्लेटफॉर्म है जो किसानों को आधुनिक कृषि उपकरणों से जोड़ता है। हमारा मानना है कि हर किसान को अपनी उत्पादकता और आजीविका में सुधार के लिए गुणवत्तापूर्ण मशीनरी तक पहुंच होनी चाहिए।" data-mr="एग्रीरेंट हे एक क्रांतिकारी प्लॅटफॉर्म आहे जे शेतकऱ्यांना आधुनिक कृषी उपकरणांशी जोडते. आमचा विश्वास आहे की प्रत्येक शेतकऱ्याला त्यांची उत्पादकता आणि जीविका सुधारण्यासाठी दर्जेदार यंत्रे उपलब्ध असावीत.">AgriRent is a revolutionary platform connecting farmers with modern agricultural equipment.</p>
                     </div>
                 </div>
             </div>
@@ -176,7 +183,7 @@
                     <div class="contact-info">
                         <h3 data-en="Get in Touch" data-hi="संपर्क में रहें" data-mr="संपर्कात रहा">Get in Touch</h3>
                         <p>📞 +91 98765 43210</p>
-                        <p>📧 info@farmrent.com</p>
+                        <p>📧 info@agrirent.com</p>
                         <p>📍 Mumbai, Maharashtra, India</p>
                     </div>
                 </div>
@@ -514,7 +521,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('registerModal')">&times;</span>
             <div class="modal-header">
-                <h2 data-en="Join FarmRent" data-hi="फार्मरेंट में शामिल हों" data-mr="फार्मरेंटमध्ये सामील व्हा">Join FarmRent</h2>
+                <h2 data-en="Join AgriRent" data-hi="एग्रीरेंट में शामिल हों" data-mr="एग्रीरेंटमध्ये सामील व्हा">Join AgriRent</h2>
                 <p data-en="Create your account today" data-hi="आज ही अपना खाता बनाएं" data-mr="आजच तुमचे खाते तयार करा">Create your account today</p>
             </div>
             <form id="registerForm" onsubmit="register(event)">
@@ -653,7 +660,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>🚜 FarmRent</h3>
+                    <h3>🚜 AgriRent</h3>
                     <p data-en="Connecting farmers with quality equipment for modern agriculture. Making farming more efficient and profitable." data-hi="आधुनिक कृषि के लिए किसानों को गुणवत्तापूर्ण उपकरणों से जोड़ना। खेती को अधिक कुशल और लाभदायक बनाना।" data-mr="आधुनिक शेतीसाठी शेतकऱ्यांना दर्जेदार उपकरणांशी जोडणे. शेती अधिक कार्यक्षम आणि फायदेशीर बनवणे.">Connecting farmers with quality equipment for modern agriculture.</p>
                     <div class="social-links">
                         <a href="#">📷 Instagram</a>
@@ -672,7 +679,7 @@
                 <div class="footer-section">
                     <h3 data-en="Contact Info" data-hi="संपर्क जानकारी" data-mr="संपर्क माहिती">Contact Info</h3>
                     <div class="contact-item">📞 +91 98765 43210</div>
-                    <div class="contact-item">📧 info@farmrent.com</div>
+                    <div class="contact-item">📧 info@agrirent.com</div>
                     <div class="contact-item">📍 Mumbai, Maharashtra, India</div>
                     <div class="contact-item">🕐 24/7 Support Available</div>
                 </div>
@@ -685,7 +692,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 FarmRent. <span data-en="All rights reserved. Made with ❤️ for farmers." data-hi="सभी अधिकार सुरक्षित। किसानों के लिए ❤️ से बनाया गया।" data-mr="सर्व हक्क राखीव. शेतकऱ्यांसाठी ❤️ ने बनवले.">All rights reserved. Made with ❤️ for farmers.</span></p>
+                <p>&copy; 2025 AgriRent. <span data-en="All rights reserved. Made with ❤️ for farmers." data-hi="सभी अधिकार सुरक्षित। किसानों के लिए ❤️ से बनाया गया।" data-mr="सर्व हक्क राखीव. शेतकऱ्यांसाठी ❤️ ने बनवले.">All rights reserved. Made with ❤️ for farmers.</span></p>
             </div>
         </div>
     </footer>

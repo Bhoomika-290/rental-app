@@ -4,6 +4,8 @@ let currentUser = null;
 let currentEquipment = null;
 let equipmentData = [];
 let filteredEquipment = [];
+let sliderTimers = new Map(); // Store timers for each slider
+let navigationHistory = []; // Store navigation history
 
 // Equipment Data with Real Image Paths
 const equipmentDatabase = [
@@ -261,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
     filteredEquipment = [...equipmentData];
     initializeApp();
     optimizeImages();
+    initializeSliders();
 });
 
 function initializeApp() {
@@ -335,6 +338,36 @@ function updateLanguage() {
             option.textContent = text;
         }
     });
+    
+    // Update back button text
+    const backButton = document.getElementById('backButton');
+    if (backButton) {
+        const backText = backButton.getAttribute('data-' + currentLanguage);
+        if (backText) {
+            backButton.textContent = backText;
+        }
+    }
+    
+    // Update dashboard navigation text
+    const dashboardNavItem = document.getElementById('dashboardNavItem');
+    if (dashboardNavItem) {
+        const dashboardLink = dashboardNavItem.querySelector('a');
+        if (dashboardLink) {
+            const dashboardText = dashboardLink.getAttribute('data-' + currentLanguage);
+            if (dashboardText) {
+                dashboardLink.textContent = dashboardText;
+            }
+        }
+    }
+    
+    // Update mobile dashboard button text
+    const dashboardMobileBtn = document.querySelector('.dashboard-mobile-btn');
+    if (dashboardMobileBtn) {
+        const mobileDashboardText = dashboardMobileBtn.getAttribute('data-' + currentLanguage);
+        if (mobileDashboardText) {
+            dashboardMobileBtn.textContent = mobileDashboardText;
+        }
+    }
 }
 
 // Enhanced Equipment Management with Real Images
@@ -349,8 +382,11 @@ function updateEquipmentGrid() {
         allGrid.innerHTML = createEquipmentCards(filteredEquipment);
     }
     
-    // Initialize lazy loading after content is added
-    setTimeout(optimizeImages, 100);
+    // Initialize lazy loading and sliders after content is added
+    setTimeout(() => {
+        optimizeImages();
+        initializeSliders();
+    }, 100);
 }
 
 function createEquipmentCards(equipment) {
@@ -373,12 +409,19 @@ function createEquipmentCards(equipment) {
                     </div>
                 `).join('')}
                 ${item.images.length > 1 ? `
-                    <button class="slider-nav slider-prev" onclick="changeSlide(${item.id}, -1)" aria-label="Previous image">‹</button>
-                    <button class="slider-nav slider-next" onclick="changeSlide(${item.id}, 1)" aria-label="Next image">›</button>
+                    <button class="slider-nav slider-prev" data-equipment-id="${item.id}" data-direction="-1" aria-label="Previous image">‹</button>
+                    <button class="slider-nav slider-next" data-equipment-id="${item.id}" data-direction="1" aria-label="Next image">›</button>
+                    <div class="slider-controls">
+                        <button class="slider-play-pause" data-equipment-id="${item.id}" aria-label="Pause auto-slide">
+                            <span class="pause-icon">⏸</span>
+                            <span class="play-icon" style="display: none;">▶</span>
+                        </button>
+                    </div>
                     <div class="slider-dots">
                         ${item.images.map((_, index) => `
                             <button class="dot ${index === 0 ? 'active' : ''}" 
-                                    onclick="goToSlide(${item.id}, ${index})" 
+                                    data-equipment-id="${item.id}" 
+                                    data-slide-index="${index}"
                                     aria-label="Go to image ${index + 1}"></button>
                         `).join('')}
                     </div>
@@ -440,16 +483,141 @@ function getTranslation(en, hi, mr) {
            en;
 }
 
-// Enhanced Image Slider with Dot Navigation
-function changeSlide(equipmentId, direction) {
+// Initialize sliders after DOM is loaded
+function initializeSliders() {
+    console.log('Initializing sliders...');
+    
+    // Remove existing event listeners to prevent duplicates
+    document.removeEventListener('click', handleSliderClick);
+    
+    // Add event listeners to all slider navigation buttons
+    document.addEventListener('click', handleSliderClick);
+    
+    // Check if sliders exist
+    const sliders = document.querySelectorAll('.equipment-slider');
+    console.log(`Found ${sliders.length} sliders`);
+    
+    // Initialize each slider
+    sliders.forEach(slider => {
+        const equipmentId = slider.id.replace('slider-', '');
+        console.log(`Initializing slider for equipment ${equipmentId}`);
+        startAutoSlider(parseInt(equipmentId));
+    });
+}
+
+// Start auto-slider for a specific equipment
+function startAutoSlider(equipmentId) {
+    // Clear existing timer if any
+    if (sliderTimers.has(equipmentId)) {
+        clearInterval(sliderTimers.get(equipmentId));
+    }
+    
     const slider = document.getElementById(`slider-${equipmentId}`);
     if (!slider) return;
+    
+    const slides = slider.querySelectorAll('.slide');
+    if (slides.length <= 1) return; // Don't auto-slide if only one image
+    
+    // Start auto-slider with 4-second interval
+    const timer = setInterval(() => {
+        changeSlide(equipmentId, 1); // Move to next slide
+    }, 4000);
+    
+    sliderTimers.set(equipmentId, timer);
+    
+    // Pause auto-slider on hover
+    slider.addEventListener('mouseenter', () => {
+        if (sliderTimers.has(equipmentId)) {
+            clearInterval(sliderTimers.get(equipmentId));
+        }
+    });
+    
+    // Resume auto-slider when mouse leaves
+    slider.addEventListener('mouseleave', () => {
+        startAutoSlider(equipmentId);
+    });
+}
+
+// Stop auto-slider for a specific equipment
+function stopAutoSlider(equipmentId) {
+    if (sliderTimers.has(equipmentId)) {
+        clearInterval(sliderTimers.get(equipmentId));
+        sliderTimers.delete(equipmentId);
+    }
+}
+
+// Stop all auto-sliders
+function stopAllAutoSliders() {
+    sliderTimers.forEach((timer, equipmentId) => {
+        clearInterval(timer);
+    });
+    sliderTimers.clear();
+}
+
+function handleSliderClick(event) {
+    if (event.target.classList.contains('slider-prev') || event.target.classList.contains('slider-next')) {
+        event.preventDefault();
+        const equipmentId = parseInt(event.target.getAttribute('data-equipment-id'));
+        const direction = parseInt(event.target.getAttribute('data-direction'));
+        console.log(`Slider navigation clicked: equipment ${equipmentId}, direction ${direction}`);
+        changeSlide(equipmentId, direction);
+        // Restart auto-slider after manual interaction
+        setTimeout(() => startAutoSlider(equipmentId), 1000);
+    }
+    
+    if (event.target.classList.contains('dot')) {
+        event.preventDefault();
+        const equipmentId = parseInt(event.target.getAttribute('data-equipment-id'));
+        const slideIndex = parseInt(event.target.getAttribute('data-slide-index'));
+        console.log(`Slider dot clicked: equipment ${equipmentId}, slide ${slideIndex}`);
+        goToSlide(equipmentId, slideIndex);
+        // Restart auto-slider after manual interaction
+        setTimeout(() => startAutoSlider(equipmentId), 1000);
+    }
+    
+    if (event.target.classList.contains('slider-play-pause') || event.target.closest('.slider-play-pause')) {
+        event.preventDefault();
+        const button = event.target.closest('.slider-play-pause');
+        const equipmentId = parseInt(button.getAttribute('data-equipment-id'));
+        const pauseIcon = button.querySelector('.pause-icon');
+        const playIcon = button.querySelector('.play-icon');
+        
+        if (sliderTimers.has(equipmentId)) {
+            // Currently playing, pause it
+            stopAutoSlider(equipmentId);
+            pauseIcon.style.display = 'none';
+            playIcon.style.display = 'inline';
+            button.setAttribute('aria-label', 'Resume auto-slide');
+        } else {
+            // Currently paused, start it
+            startAutoSlider(equipmentId);
+            pauseIcon.style.display = 'inline';
+            playIcon.style.display = 'none';
+            button.setAttribute('aria-label', 'Pause auto-slide');
+        }
+    }
+}
+
+// Enhanced Image Slider with Dot Navigation
+function changeSlide(equipmentId, direction) {
+    console.log(`changeSlide called: equipmentId=${equipmentId}, direction=${direction}`);
+    const slider = document.getElementById(`slider-${equipmentId}`);
+    if (!slider) {
+        console.log(`Slider not found for equipment ID: ${equipmentId}`);
+        return;
+    }
 
     const slides = slider.querySelectorAll('.slide');
     const dots = slider.querySelectorAll('.dot');
-    if (slides.length <= 1) return;
+    console.log(`Found ${slides.length} slides and ${dots.length} dots`);
+    
+    if (slides.length <= 1) {
+        console.log('Not enough slides to navigate');
+        return;
+    }
 
     let currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+    console.log(`Current slide index: ${currentIndex}`);
     
     slides[currentIndex].classList.remove('active');
     if (dots.length > 0) dots[currentIndex].classList.remove('active');
@@ -459,6 +627,7 @@ function changeSlide(equipmentId, direction) {
     if (currentIndex >= slides.length) currentIndex = 0;
     if (currentIndex < 0) currentIndex = slides.length - 1;
     
+    console.log(`New slide index: ${currentIndex}`);
     slides[currentIndex].classList.add('active');
     if (dots.length > 0) dots[currentIndex].classList.add('active');
 }
@@ -466,7 +635,10 @@ function changeSlide(equipmentId, direction) {
 // Direct slide navigation via dots
 function goToSlide(equipmentId, slideIndex) {
     const slider = document.getElementById(`slider-${equipmentId}`);
-    if (!slider) return;
+    if (!slider) {
+        console.log(`Slider not found for equipment ID: ${equipmentId}`);
+        return;
+    }
 
     const slides = slider.querySelectorAll('.slide');
     const dots = slider.querySelectorAll('.dot');
@@ -503,7 +675,21 @@ function optimizeImages() {
 }
 
 // Page Navigation
-function showPage(page) {
+function showPage(page, addToHistory = true) {
+    // Stop all auto-sliders when changing pages
+    stopAllAutoSliders();
+    
+    // Add current page to history if not already there and we want to add to history
+    if (addToHistory && navigationHistory.length > 0) {
+        const currentPage = getCurrentPage();
+        if (currentPage && currentPage !== page) {
+            navigationHistory.push(currentPage);
+        }
+    } else if (addToHistory) {
+        // If this is the first navigation, add home as the starting point
+        navigationHistory.push('home');
+    }
+    
     const pages = document.querySelectorAll('.page, .dashboard');
     pages.forEach(p => {
         p.classList.add('hidden');
@@ -513,6 +699,51 @@ function showPage(page) {
     const pageElement = document.getElementById(page + 'Page');
     if (pageElement) {
         pageElement.classList.remove('hidden');
+        
+        // Update back button visibility
+        updateBackButton();
+        
+        // Reinitialize sliders if we're on equipment page
+        if (page === 'equipment' || page === 'home') {
+            setTimeout(() => {
+                initializeSliders();
+            }, 100);
+        }
+    }
+}
+
+// Get current active page
+function getCurrentPage() {
+    const pages = document.querySelectorAll('.page, .dashboard');
+    for (let page of pages) {
+        if (!page.classList.contains('hidden')) {
+            return page.id.replace('Page', '').replace('Dashboard', '');
+        }
+    }
+    return null;
+}
+
+// Go back to previous page
+function goBack() {
+    if (navigationHistory.length > 0) {
+        const previousPage = navigationHistory.pop();
+        showPage(previousPage, false); // Don't add to history when going back
+    } else {
+        // If no history, go to home
+        showPage('home', false);
+    }
+}
+
+// Update back button visibility
+function updateBackButton() {
+    const backButton = document.getElementById('backButton');
+    const currentPage = getCurrentPage();
+    
+    // Show back button if we're not on home page and have history
+    if (currentPage !== 'home' && navigationHistory.length > 0) {
+        backButton.classList.remove('hidden');
+    } else {
+        backButton.classList.add('hidden');
     }
 }
 
@@ -606,18 +837,44 @@ function updateAuthUI() {
     const authButtons = document.getElementById('authButtons');
     const userMenu = document.getElementById('userMenu');
     const userName = document.getElementById('userName');
+    const dashboardNavItem = document.getElementById('dashboardNavItem');
+    const dashboardMobileBtn = document.querySelector('.dashboard-mobile-btn');
     
     if (currentUser) {
         authButtons.classList.add('hidden');
         userMenu.classList.remove('hidden');
         userName.textContent = currentUser.name;
+        dashboardNavItem.classList.remove('hidden');
+        if (dashboardMobileBtn) {
+            dashboardMobileBtn.classList.remove('hidden');
+        }
     } else {
         authButtons.classList.remove('hidden');
         userMenu.classList.add('hidden');
+        dashboardNavItem.classList.add('hidden');
+        if (dashboardMobileBtn) {
+            dashboardMobileBtn.classList.add('hidden');
+        }
+    }
+}
+
+// Go to dashboard based on user type
+function goToDashboard() {
+    if (currentUser) {
+        showDashboard(currentUser.type);
+    } else {
+        showModal('loginModal');
+        showNotification(getTranslation('Please login to access dashboard', 'डैशबोर्ड तक पहुंचने के लिए कृपया लॉगिन करें', 'डॅशबोर्डमध्ये प्रवेश करण्यासाठी कृपया लॉगिन करा'), 'warning');
     }
 }
 
 function showDashboard(type) {
+    // Add current page to history before showing dashboard
+    const currentPage = getCurrentPage();
+    if (currentPage && currentPage !== 'home') {
+        navigationHistory.push(currentPage);
+    }
+    
     const pages = document.querySelectorAll('.page, .dashboard');
     pages.forEach(p => {
         p.classList.add('hidden');
@@ -630,6 +887,9 @@ function showDashboard(type) {
     if (dashboard) {
         dashboard.classList.remove('hidden');
         dashboard.classList.add('active');
+        
+        // Update back button visibility
+        updateBackButton();
     }
 }
 
