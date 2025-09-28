@@ -23,15 +23,14 @@ const equipmentDatabase = [
         descriptionHi: "मध्यम से बड़े पैमाने की खेती के संचालन के लिए आदर्श प्रीमियम 50 एचपी जॉन डीयर ट्रैक्टर। इसमें 4-व्हील ड्राइव, पावर स्टीयरिंग, हाइड्रोलिक लिफ्ट सिस्टम और आरामदायक ऑपरेटर केबिन है। जुताई, कल्टीवेशन, बुआई और हार्वेस्टिंग ऑपरेशन के लिए बिल्कुल सही।सभी क्षेत्रीय स्थितियों में उत्कृष्ट प्रदर्शन के साथ ईंधन कुशल।",
         descriptionMr: "मध्यम ते मोठ्या प्रमाणावरील शेती कामांसाठी आदर्श प्रीमियम 50 एचपी जॉन डिअर ट्रॅक्टर. यामध्ये 4-व्हील ड्राइव्ह, पॉवर स्टीयरिंग, हायड्रॉलिक लिफ्ट सिस्टम आणि आरामदायक ऑपरेटर केबिन आहे. नांगरणी, कल्टिव्हेशन, पेरणी आणि कापणी कामांसाठी परिपूर्ण. सर्व शेतातील परिस्थितींमध्ये उत्कृष्ट कामगिरीसह इंधन कार्यक्षम.",
         available: true,
-        available: true,
         year: 2020,
         owner: "Rahul Sharma",
         ownerPhone: "+91 98765 11111",
         specifications: "50 HP, 4WD, Power Steering",
         images: [
-            "https://www.deere.co.in/assets/images/region-1/products/tractors/e-series-tractors/john-deere-india-trem-4-5310-left-angle.png", // Green tractor main view
-            "https://www.91tractors.com/_next/image?url=https:%2F%2Fimages.91trucks.com%2Ftractors%2Fmodels%2F31%2F480%2Fjohn-deere-5310-gearpro-983528694.jpg%3Fw%3D640%26v%3D1235&w=640&q=75", // Tractor side view
-            "https://www.deere.co.in/assets/images/region-1/products/tractors/e-series-tractors/john-deere-india-trem%204-5310-front.png", // Tractor front view
+            "https://www.deere.co.in/assets/images/region-1/products/tractors/e-series-tractors/john-deere-india-trem-4-5310-left-angle.png",
+            "https://www.91tractors.com/_next/image?url=https:%2F%2Fimages.91trucks.com%2Ftractors%2Fmodels%2F31%2F480%2Fjohn-deere-5310-gearpro-983528694.jpg%3Fw%3D640%26v%3D1235&w=640&q=75",
+            "https://www.deere.co.in/assets/images/region-1/products/tractors/e-series-tractors/john-deere-india-trem%204-5310-front.png",
             "https://www.deere.co.in/assets/images/region-1/products/tractors/trem-four-india-products/trem-4-5310-right-angle.png" 
         ]
     },
@@ -48,7 +47,6 @@ const equipmentDatabase = [
         description: "High-performance Mahindra harvester designed for efficient harvesting of wheat, rice, and other cereal crops.Self-propelled with powerful 120 HP engine and 4-meter cutting width for maximum productivity. Equipped with modern technology for minimal grain loss and superior grain quality. Ideal for custom harvesting services and large farm operations.",
         descriptionHi: "गेहूं, चावल और अन्य अनाज फसलों की कुशल कटाई के लिए डिज़ाइन किया गया उच्च प्रदर्शन महिंद्रा कंबाइन हार्वेस्टर।अधिकतम उत्पादकता के लिए शक्तिशाली 120 एचपी इंजन और 4-मीटर कटिंग चौड़ाई के साथ स्व-चालित। न्यूनतम अनाज हानि और बेहतर अनाज गुणवत्ता के लिए आधुनिक तकनीक से लैस। कस्टम हार्वेस्टिंग सेवाओं और बड़े फार्म संचालन के लिए आदर्श।",
         descriptionMr: "गहू, भात आणि इतर धान्य पिकांच्या कार्यक्षम कापणीसाठी डिझाइन केलेले उच्च-कामगिरी महिंद्रा कंबाइन हार्वेस्टर.जास्तीत जास्त उत्पादकतेसाठी शक्तिशाली 120 एचपी इंजिन आणि 4-मीटर कटिंग रुंदी असलेले स्वयं-चालित. कमीत कमी धान्य नुकसान आणि उत्कृष्ट धान्य गुणवत्तेसाठी आधुनिक तंत्रज्ञानाने सुसज्ज. सानुकूल कापणी सेवा आणि मोठ्या शेत कामांसाठी आदर्श.",
-        available: false,
         available: false,
         year: 2019,
         owner: "Suresh Patel",
@@ -195,8 +193,6 @@ const equipmentDatabase = [
          descriptionMr: "अचूक कीटकनाशक, तणनाशक आणि खत वापरण्यासाठी डिझाइन केलेली 500-लिटर टाकी क्षमता असलेली व्यावसायिक कृषी फवारणी प्रणाली. कार्यक्षम कव्हरेजसाठी 40 लिटर प्रति मिनिट प्रवाह दर पुरवणारी उच्च दाब पंपिंग प्रणाली. व्यापक क्षेत्र अनुप्रयोगासाठी 12-मीटर बूम रुंदीने सुसज्ज, शेत पास कमी करते आणि वेळ वाचवते. प्रगत नॉझल कॉन्फिगरेशन इष्टतम रासायनिक प्रभावशीलतेसाठी एकसमान स्प्रे पॅटर्न आणि थेंब आकार सुनिश्चित करते. सातत्यपूर्ण मिश्रणासाठी दाब गेज, प्रवाह नियंत्रण व्हाल्व्ह आणि आंदोलन प्रणाली समाविष्ट आहे. पीक संरक्षण आणि पोषक तत्व व्यवस्थापन कार्यक्रमांसाठी परिपूर्ण.",
         available: true,
         year: 2022,
-        available: true,
-        year: 2022,
         owner: "Sanjay Bhosale",
         ownerPhone: "+91 98765 88888",
         specifications: "500L tank capacity, 40L/min flow rate, boom width 12m",
@@ -243,7 +239,6 @@ const equipmentDatabase = [
         description: "Industrial-grade centrifugal water pump set with 5 HP motor designed for high-capacity irrigation and water transfer applications. Features self-priming capability with automatic suction lift up to 25 feet, eliminating the need for manual priming. Delivers impressive 1000 gallons per hour flow rate for efficient field irrigation. Corrosion-resistant impeller and volute casing ensure long service life in agricultural environments. Equipped with thermal overload protection and mechanical seals for reliable operation. Perfect for crop irrigation, livestock watering, drainage, and emergency water supply needs.",
          descriptionHi: "उच्च क्षमता सिंचाई और जल स्थानांतरण अनुप्रयोगों के लिए डिज़ाइन किया गया 5 एचपी मोटर के साथ औद्योगिक ग्रेड केन्द्रापसारक वॉटर पंप सेट। मैन्युअल प्राइमिंग की आवश्यकता को समाप्त करते हुए 25 फीट तक स्वचालित सक्शन लिफ्ट के साथ स्व-प्राइमिंग क्षमता। कुशल क्षेत्र सिंचाई के लिए प्रभावशाली 1000 गैलन प्रति घंटा प्रवाह दर प्रदान करता है। जंग प्रतिरोधी इम्पेलर और वॉल्यूट आवरण कृषि वातावरण में लंबी सेवा जीवन सुनिश्चित करते हैं। विश्वसनीय संचालन के लिए थर्मल ओवरलोड सुरक्षा और यांत्रिक सील से सुसज्जित। फसल सिंचाई, पशुधन पानी, जल निकासी और आपातकालीन जल आपूर्ति आवश्यकताओं के लिए बिल्कुल सही।",
         descriptionMr: "उच्च क्षमता सिंचन आणि पाणी हस्तांतरण अनुप्रयोगांसाठी डिझाइन केलेले 5 एचपी मोटरसह औद्योगिक दर्जाचे केंद्रापसारक पाणी पंप सेट. मॅन्युअल प्राइमिंगची आवश्यकता काढून टाकून 25 फूट पर्यंत स्वयंचलित सक्शन लिफ्टसह स्वयं-प्राइमिंग क्षमता. कार्यक्षम शेत सिंचनासाठी प्रभावशाली 1000 गॅलन प्रति तास प्रवाह दर पुरवते. गंज प्रतिरोधी इंपेलर आणि व्हॉल्यूट आवरण कृषी वातावरणात दीर्घ सेवा आयुष्य सुनिश्चित करते. विश्वसनीय ऑपरेशनसाठी थर्मल ओव्हरलोड संरक्षण आणि यांत्रिक सीलने सुसज्ज. पीक सिंचन, पशुधन पाणी पुरवठा, निचरा आणि आपत्कालीन पाणी पुरवठा गरजांसाठी परिपूर्ण.",
-        available: true,
         available: true,
         year: 2021,
         owner: "Meera Pawar",
@@ -370,16 +365,21 @@ function updateLanguage() {
     }
 }
 
-// Enhanced Equipment Management with Real Images
+// FIXED: Helper function for slider keys
+function getSliderKey(equipmentId, pageType) {
+    return `${pageType}-${equipmentId}`;
+}
+
+// FIXED: Enhanced Equipment Management with Real Images and Page Types
 function updateEquipmentGrid() {
     const homeGrid = document.getElementById('equipmentGrid');
     const allGrid = document.getElementById('allEquipmentGrid');
     
     if (homeGrid) {
-        homeGrid.innerHTML = createEquipmentCards(filteredEquipment.slice(0, 3));
+        homeGrid.innerHTML = createEquipmentCards(filteredEquipment.slice(0, 3), 'home');
     }
     if (allGrid) {
-        allGrid.innerHTML = createEquipmentCards(filteredEquipment);
+        allGrid.innerHTML = createEquipmentCards(filteredEquipment, 'equipment');
     }
     
     // Initialize lazy loading and sliders after content is added
@@ -389,16 +389,21 @@ function updateEquipmentGrid() {
     }, 100);
 }
 
-function createEquipmentCards(equipment) {
+// FIXED: Updated createEquipmentCards function with unique IDs
+function createEquipmentCards(equipment, pageType = 'home') {
     if (!equipment || equipment.length === 0) {
         return `<div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
             <p>${getTranslation('No equipment found', 'कोई उपकरण नहीं मिला', 'कोणतीही उपकरणे सापडली नाहीत')}</p>
         </div>`;
     }
 
-    return equipment.map(item => `
+    return equipment.map(item => {
+        // Create unique slider ID based on page type
+        const sliderId = `slider-${pageType}-${item.id}`;
+        
+        return `
         <div class="equipment-card">
-            <div class="equipment-slider" id="slider-${item.id}">
+            <div class="equipment-slider" id="${sliderId}">
                 ${item.images.map((imgSrc, index) => `
                     <div class="slide ${index === 0 ? 'active' : ''}" data-slide="${index}">
                         <img src="${imgSrc}" 
@@ -409,10 +414,10 @@ function createEquipmentCards(equipment) {
                     </div>
                 `).join('')}
                 ${item.images.length > 1 ? `
-                    <button class="slider-nav slider-prev" data-equipment-id="${item.id}" data-direction="-1" aria-label="Previous image">‹</button>
-                    <button class="slider-nav slider-next" data-equipment-id="${item.id}" data-direction="1" aria-label="Next image">›</button>
+                    <button class="slider-nav slider-prev" data-equipment-id="${item.id}" data-page-type="${pageType}" data-direction="-1" aria-label="Previous image">‹</button>
+                    <button class="slider-nav slider-next" data-equipment-id="${item.id}" data-page-type="${pageType}" data-direction="1" aria-label="Next image">›</button>
                     <div class="slider-controls">
-                        <button class="slider-play-pause" data-equipment-id="${item.id}" aria-label="Pause auto-slide">
+                        <button class="slider-play-pause" data-equipment-id="${item.id}" data-page-type="${pageType}" aria-label="Pause auto-slide">
                             <span class="pause-icon">⏸</span>
                             <span class="play-icon" style="display: none;">▶</span>
                         </button>
@@ -421,6 +426,7 @@ function createEquipmentCards(equipment) {
                         ${item.images.map((_, index) => `
                             <button class="dot ${index === 0 ? 'active' : ''}" 
                                     data-equipment-id="${item.id}" 
+                                    data-page-type="${pageType}"
                                     data-slide-index="${index}"
                                     aria-label="Go to image ${index + 1}"></button>
                         `).join('')}
@@ -456,7 +462,8 @@ function createEquipmentCards(equipment) {
                 </button>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 function getItemName(item) {
@@ -483,7 +490,7 @@ function getTranslation(en, hi, mr) {
            en;
 }
 
-// Initialize sliders after DOM is loaded
+// FIXED: Initialize sliders after DOM is loaded
 function initializeSliders() {
     console.log('Initializing sliders...');
     
@@ -493,104 +500,131 @@ function initializeSliders() {
     // Add event listeners to all slider navigation buttons
     document.addEventListener('click', handleSliderClick);
     
-    // Check if sliders exist
-    const sliders = document.querySelectorAll('.equipment-slider');
-    console.log(`Found ${sliders.length} sliders`);
+    // Initialize sliders for home page
+    const homeSliders = document.querySelectorAll('#equipmentGrid .equipment-slider');
+    console.log(`Found ${homeSliders.length} home sliders`);
     
-    // Initialize each slider
-    sliders.forEach(slider => {
-        const equipmentId = slider.id.replace('slider-', '');
-        console.log(`Initializing slider for equipment ${equipmentId}`);
-        startAutoSlider(parseInt(equipmentId));
+    homeSliders.forEach(slider => {
+        const equipmentId = slider.id.replace('slider-home-', '');
+        console.log(`Initializing home slider for equipment ${equipmentId}`);
+        if (equipmentId) {
+            startAutoSlider(parseInt(equipmentId), 'home');
+        }
+    });
+    
+    // Initialize sliders for equipment page
+    const equipmentSliders = document.querySelectorAll('#allEquipmentGrid .equipment-slider');
+    console.log(`Found ${equipmentSliders.length} equipment page sliders`);
+    
+    equipmentSliders.forEach(slider => {
+        const equipmentId = slider.id.replace('slider-equipment-', '');
+        console.log(`Initializing equipment page slider for equipment ${equipmentId}`);
+        if (equipmentId) {
+            startAutoSlider(parseInt(equipmentId), 'equipment');
+        }
     });
 }
 
-// Start auto-slider for a specific equipment
-function startAutoSlider(equipmentId) {
+// FIXED: Start auto-slider for a specific equipment with page type
+function startAutoSlider(equipmentId, pageType = 'home') {
+    const sliderKey = getSliderKey(equipmentId, pageType);
+    const sliderId = `slider-${pageType}-${equipmentId}`;
+    
     // Clear existing timer if any
-    if (sliderTimers.has(equipmentId)) {
-        clearInterval(sliderTimers.get(equipmentId));
+    if (sliderTimers.has(sliderKey)) {
+        clearInterval(sliderTimers.get(sliderKey));
     }
     
-    const slider = document.getElementById(`slider-${equipmentId}`);
-    if (!slider) return;
+    const slider = document.getElementById(sliderId);
+    if (!slider) {
+        console.log(`Slider not found: ${sliderId}`);
+        return;
+    }
     
     const slides = slider.querySelectorAll('.slide');
     if (slides.length <= 1) return; // Don't auto-slide if only one image
     
+    console.log(`Starting auto-slider for ${sliderId}`);
+    
     // Start auto-slider with 4-second interval
     const timer = setInterval(() => {
-        changeSlide(equipmentId, 1); // Move to next slide
+        changeSlide(equipmentId, 1, pageType); // Move to next slide
     }, 4000);
     
-    sliderTimers.set(equipmentId, timer);
+    sliderTimers.set(sliderKey, timer);
     
     // Pause auto-slider on hover
     slider.addEventListener('mouseenter', () => {
-        if (sliderTimers.has(equipmentId)) {
-            clearInterval(sliderTimers.get(equipmentId));
+        if (sliderTimers.has(sliderKey)) {
+            clearInterval(sliderTimers.get(sliderKey));
         }
     });
     
     // Resume auto-slider when mouse leaves
     slider.addEventListener('mouseleave', () => {
-        startAutoSlider(equipmentId);
+        startAutoSlider(equipmentId, pageType);
     });
 }
 
-// Stop auto-slider for a specific equipment
-function stopAutoSlider(equipmentId) {
-    if (sliderTimers.has(equipmentId)) {
-        clearInterval(sliderTimers.get(equipmentId));
-        sliderTimers.delete(equipmentId);
+// FIXED: Stop auto-slider for a specific equipment with page type
+function stopAutoSlider(equipmentId, pageType = 'home') {
+    const sliderKey = getSliderKey(equipmentId, pageType);
+    if (sliderTimers.has(sliderKey)) {
+        clearInterval(sliderTimers.get(sliderKey));
+        sliderTimers.delete(sliderKey);
     }
 }
 
-// Stop all auto-sliders
+// FIXED: Stop all auto-sliders
 function stopAllAutoSliders() {
-    sliderTimers.forEach((timer, equipmentId) => {
+    sliderTimers.forEach((timer, key) => {
         clearInterval(timer);
     });
     sliderTimers.clear();
 }
 
+// FIXED: Updated handleSliderClick function
 function handleSliderClick(event) {
     if (event.target.classList.contains('slider-prev') || event.target.classList.contains('slider-next')) {
         event.preventDefault();
         const equipmentId = parseInt(event.target.getAttribute('data-equipment-id'));
+        const pageType = event.target.getAttribute('data-page-type') || 'home';
         const direction = parseInt(event.target.getAttribute('data-direction'));
-        console.log(`Slider navigation clicked: equipment ${equipmentId}, direction ${direction}`);
-        changeSlide(equipmentId, direction);
+        console.log(`Slider navigation clicked: equipment ${equipmentId}, page ${pageType}, direction ${direction}`);
+        changeSlide(equipmentId, direction, pageType);
         // Restart auto-slider after manual interaction
-        setTimeout(() => startAutoSlider(equipmentId), 1000);
+        setTimeout(() => startAutoSlider(equipmentId, pageType), 1000);
     }
     
     if (event.target.classList.contains('dot')) {
         event.preventDefault();
         const equipmentId = parseInt(event.target.getAttribute('data-equipment-id'));
+        const pageType = event.target.getAttribute('data-page-type') || 'home';
         const slideIndex = parseInt(event.target.getAttribute('data-slide-index'));
-        console.log(`Slider dot clicked: equipment ${equipmentId}, slide ${slideIndex}`);
-        goToSlide(equipmentId, slideIndex);
+        console.log(`Slider dot clicked: equipment ${equipmentId}, page ${pageType}, slide ${slideIndex}`);
+        goToSlide(equipmentId, slideIndex, pageType);
         // Restart auto-slider after manual interaction
-        setTimeout(() => startAutoSlider(equipmentId), 1000);
+        setTimeout(() => startAutoSlider(equipmentId, pageType), 1000);
     }
     
     if (event.target.classList.contains('slider-play-pause') || event.target.closest('.slider-play-pause')) {
         event.preventDefault();
         const button = event.target.closest('.slider-play-pause');
         const equipmentId = parseInt(button.getAttribute('data-equipment-id'));
+        const pageType = button.getAttribute('data-page-type') || 'home';
+        const sliderKey = getSliderKey(equipmentId, pageType);
         const pauseIcon = button.querySelector('.pause-icon');
         const playIcon = button.querySelector('.play-icon');
         
-        if (sliderTimers.has(equipmentId)) {
+        if (sliderTimers.has(sliderKey)) {
             // Currently playing, pause it
-            stopAutoSlider(equipmentId);
+            stopAutoSlider(equipmentId, pageType);
             pauseIcon.style.display = 'none';
             playIcon.style.display = 'inline';
             button.setAttribute('aria-label', 'Resume auto-slide');
         } else {
             // Currently paused, start it
-            startAutoSlider(equipmentId);
+            startAutoSlider(equipmentId, pageType);
             pauseIcon.style.display = 'inline';
             playIcon.style.display = 'none';
             button.setAttribute('aria-label', 'Pause auto-slide');
@@ -598,12 +632,14 @@ function handleSliderClick(event) {
     }
 }
 
-// Enhanced Image Slider with Dot Navigation
-function changeSlide(equipmentId, direction) {
-    console.log(`changeSlide called: equipmentId=${equipmentId}, direction=${direction}`);
-    const slider = document.getElementById(`slider-${equipmentId}`);
+// FIXED: Enhanced Image Slider with Dot Navigation and Page Types
+function changeSlide(equipmentId, direction, pageType = 'home') {
+    const sliderId = `slider-${pageType}-${equipmentId}`;
+    console.log(`changeSlide called: sliderId=${sliderId}, direction=${direction}`);
+    
+    const slider = document.getElementById(sliderId);
     if (!slider) {
-        console.log(`Slider not found for equipment ID: ${equipmentId}`);
+        console.log(`Slider not found for ID: ${sliderId}`);
         return;
     }
 
@@ -632,11 +668,12 @@ function changeSlide(equipmentId, direction) {
     if (dots.length > 0) dots[currentIndex].classList.add('active');
 }
 
-// Direct slide navigation via dots
-function goToSlide(equipmentId, slideIndex) {
-    const slider = document.getElementById(`slider-${equipmentId}`);
+// FIXED: Direct slide navigation via dots with page types
+function goToSlide(equipmentId, slideIndex, pageType = 'home') {
+    const sliderId = `slider-${pageType}-${equipmentId}`;
+    const slider = document.getElementById(sliderId);
     if (!slider) {
-        console.log(`Slider not found for equipment ID: ${equipmentId}`);
+        console.log(`Slider not found for ID: ${sliderId}`);
         return;
     }
 
@@ -674,10 +711,13 @@ function optimizeImages() {
     }
 }
 
-// Page Navigation
+// FIXED: Page Navigation with timer cleanup
 function showPage(page, addToHistory = true) {
     // Stop all auto-sliders when changing pages
-    stopAllAutoSliders();
+    sliderTimers.forEach((timer, key) => {
+        clearInterval(timer);
+    });
+    sliderTimers.clear();
     
     // Add current page to history if not already there and we want to add to history
     if (addToHistory && navigationHistory.length > 0) {
@@ -707,7 +747,7 @@ function showPage(page, addToHistory = true) {
         if (page === 'equipment' || page === 'home') {
             setTimeout(() => {
                 initializeSliders();
-            }, 100);
+            }, 200); // Increased timeout for better reliability
         }
     }
 }
@@ -784,10 +824,17 @@ function login(event) {
     };
     
     closeModal('loginModal');
-    updateAuthUI();
-    showDashboard(userType);
+    updateAuthUI(); // This will show the dashboard navigation
     
-    showNotification(getTranslation('Login successful!', 'लॉगिन सफल!', 'लॉगिन यशस्वी!'), 'success');
+    // Just show a success notification, no confirmation dialog
+    showNotification(
+        getTranslation(
+            'Login successful! Dashboard is now available in the navigation.',
+            'लॉगिन सफल! डैशबोर्ड अब नेवीगेशन में उपलब्ध है।',
+            'लॉगिन यशस्वी! डॅशबोर्ड आता नेव्हिगेशनमध्ये उपलब्ध आहे।'
+        ),
+        'success'
+    );
 }
 
 function register(event) {
@@ -820,10 +867,17 @@ function register(event) {
     };
     
     closeModal('registerModal');
-    updateAuthUI();
-    showDashboard(userType);
+    updateAuthUI(); // This will show the dashboard navigation
     
-    showNotification(getTranslation('Registration successful!', 'पंजीकरण सफल!', 'नोंदणी यशस्वी!'), 'success');
+    // Just show a success notification, no confirmation dialog
+    showNotification(
+        getTranslation(
+            'Registration successful! Dashboard is now available in the navigation.',
+            'पंजीकरण सफल! डैशबोर्ड अब नेवीगेशन में उपलब्ध है।',
+            'नोंदणी यशस्वी! डॅशबोर्ड आता नेव्हिगेशनमध्ये उपलब्ध आहे।'
+        ),
+        'success'
+    );
 }
 
 function logout() {
@@ -832,7 +886,6 @@ function logout() {
     showPage('home');
     showNotification(getTranslation('Logged out successfully', 'सफलतापूर्वक लॉग आउट', 'यशस्वीरित्या लॉग आउट'), 'info');
 }
-
 function updateAuthUI() {
     const authButtons = document.getElementById('authButtons');
     const userMenu = document.getElementById('userMenu');
@@ -841,22 +894,49 @@ function updateAuthUI() {
     const dashboardMobileBtn = document.querySelector('.dashboard-mobile-btn');
     
     if (currentUser) {
+        // User is logged in
         authButtons.classList.add('hidden');
         userMenu.classList.remove('hidden');
         userName.textContent = currentUser.name;
+        
+        // Show dashboard navigation
         dashboardNavItem.classList.remove('hidden');
+        dashboardNavItem.classList.add('show');
+        
+        // Show mobile dashboard button
         if (dashboardMobileBtn) {
             dashboardMobileBtn.classList.remove('hidden');
+            dashboardMobileBtn.classList.add('show');
+        }
+        
+        // Update dashboard link text based on user type
+        const dashboardLink = dashboardNavItem.querySelector('a');
+        if (dashboardLink) {
+            const userTypeText = currentUser.type === 'customer' ? 
+                getTranslation('My Dashboard', 'मेरा डैशबोर्ड', 'माझे डॅशबोर्ड') :
+                getTranslation('Owner Dashboard', 'मालिक डैशबोर्ड', 'मालक डॅशबोर्ड');
+            
+            dashboardLink.setAttribute('data-en', currentUser.type === 'customer' ? 'My Dashboard' : 'Owner Dashboard');
+            dashboardLink.setAttribute('data-hi', currentUser.type === 'customer' ? 'मेरा डैशबोर्ड' : 'मालिक डैशबोर्ड');
+            dashboardLink.setAttribute('data-mr', currentUser.type === 'customer' ? 'माझे डॅशबोर्ड' : 'मालक डॅशबोर्ड');
+            dashboardLink.textContent = userTypeText;
         }
     } else {
+        // User is logged out
         authButtons.classList.remove('hidden');
         userMenu.classList.add('hidden');
+        
+        // Hide dashboard navigation
         dashboardNavItem.classList.add('hidden');
+        dashboardNavItem.classList.remove('show');
+        
+        // Hide mobile dashboard button
         if (dashboardMobileBtn) {
             dashboardMobileBtn.classList.add('hidden');
+            dashboardMobileBtn.classList.remove('show');
         }
     }
-}
+}    
 
 // Go to dashboard based on user type
 function goToDashboard() {
