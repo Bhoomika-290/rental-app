@@ -144,6 +144,98 @@ const equipmentDatabase = [
         images: [
             "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='rotavatorGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23FF4500'/><stop offset='100%' stop-color='%23DC143C'/></linearGradient></defs><rect fill='%23FFE4B5' width='400' height='300'/><rect fill='url(%23rotavatorGrad)' x='40' y='110' width='320' height='70' rx='10'/><g fill='%23333'><circle cx='80' cy='200' r='12'/><circle cx='120' cy='200' r='12'/><circle cx='160' cy='200' r='12'/><circle cx='200' cy='200' r='12'/><circle cx='240' cy='200' r='12'/><circle cx='280' cy='200' r='12'/><circle cx='320' cy='200' r='12'/></g><g fill='%23666'><rect x='70' y='185' width='20' height='30' rx='10'/><rect x='110' y='185' width='20' height='30' rx='10'/><rect x='150' y='185' width='20' height='30' rx='10'/><rect x='190' y='185' width='20' height='30' rx='10'/><rect x='230' y='185' width='20' height='30' rx='10'/><rect x='270' y='185' width='20' height='30' rx='10'/><rect x='310' y='185' width='20' height='30' rx='10'/></g><circle fill='%23333' cx='70' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='330' cy='240' r='20' stroke='%23666' stroke-width='2'/><rect fill='%23FFD700' x='50' y='90' width='300' height='25' rx='8'/><text x='200' y='150' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>ROTAVATOR</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>"
         ]
+    },
+    {
+        id: 7,
+        name: "Threshing Machine",
+        nameHi: "थ्रेसिंग मशीन",
+        nameMr: "मळणी यंत्र",
+        category: "thresher",
+        price: 600,
+        location: "Latur, Maharashtra",
+        locationHi: "लातूर, महाराष्ट्र",
+        locationMr: "लातूर, महाराष्ट्र",
+        description: "Multi-crop threshing machine for grain separation",
+        descriptionHi: "अनाज अलग करने के लिए बहु-फसल थ्रेसिंग मशीन",
+        descriptionMr: "धान्य विभाजनासाठी बहु-पीक मळणी यंत्र",
+        available: true,
+        year: 2021,
+        owner: "Deepak Jadhav",
+        ownerPhone: "+91 98765 77777",
+        specifications: "Multi-crop thresher, 15 HP motor, 1200 kg/hr capacity",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='thresherGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23B8860B'/><stop offset='100%' stop-color='%23DAA520'/></linearGradient></defs><rect fill='%23FFFACD' width='400' height='300'/><rect fill='url(%23thresherGrad)' x='30' y='90' width='340' height='120' rx='12'/><circle fill='%23333' cx='80' cy='240' r='25' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='320' cy='240' r='25' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='80' cy='240' r='15'/><circle fill='%23555' cx='320' cy='240' r='15'/><rect fill='%23FFD700' x='40' y='70' width='320' height='25' rx='8'/><circle fill='%23CD853F' cx='200' cy='120' r='30' stroke='%238B4513' stroke-width='3'/><g fill='%238B4513' stroke='%238B4513' stroke-width='2'><line x1='185' y1='105' x2='215' y2='135'/><line x1='215' y1='105' x2='185' y2='135'/><line x1='200' y1='90' x2='200' y2='150'/><line x1='170' y1='120' x2='230' y2='120'/></g><rect fill='%23FF6347' x='250' y='110' width='80' height='40' rx='8'/><rect fill='%23228B22' x='70' y='110' width='80' height='40' rx='8'/><g fill='%238B4513' opacity='0.7'><rect x='60' y='170' width='20' height='30'/><rect x='100' y='170' width='20' height='30'/><rect x='140' y='170' width='20' height='30'/><rect x='180' y='170' width='20' height='30'/><rect x='220' y='170' width='20' height='30'/><rect x='260' y='170' width='20' height='30'/><rect x='300' y='170' width='20' height='30'/></g><text x='200' y='140' text-anchor='middle' fill='white' font-size='12' font-weight='bold'>THRESHER</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='thresherSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23B8860B'/><stop offset='100%' stop-color='%23DAA520'/></linearGradient></defs><rect fill='%23FFF8DC' width='400' height='300'/><rect fill='url(%23thresherSide)' x='50' y='110' width='300' height='80' rx='10'/><circle fill='%23333' cx='100' cy='230' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='230' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='100' cy='230' r='13'/><circle fill='%23555' cx='300' cy='230' r='13'/><rect fill='%23FFD700' x='60' y='90' width='280' height='25' rx='8'/><rect fill='%23CD853F' x='180' y='120' width='40' height='60' rx='5'/><rect fill='%23FF6347' x='250' y='130' width='60' height='30' rx='5'/><rect fill='%23228B22' x='90' y='130' width='60' height='30' rx='5'/><g fill='%238B4513' opacity='0.6'><rect x='80' y='190' width='15' height='25'/><rect x='110' y='190' width='15' height='25'/><rect x='140' y='190' width='15' height='25'/><rect x='170' y='190' width='15' height='25'/><rect x='200' y='190' width='15' height='25'/><rect x='230' y='190' width='15' height='25'/><rect x='260' y='190' width='15' height='25'/><rect x='290' y='190' width='15' height='25'/></g><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
+    },
+    {
+        id: 8,
+        name: "Sprayer System",
+        nameHi: "स्प्रेयर सिस्टम",
+        nameMr: "फवारणी यंत्र",
+        category: "sprayer",
+        price: 350,
+        location: "Nanded, Maharashtra",
+        locationHi: "नांदेड़, महाराष्ट्र",
+        locationMr: "नांदेड, महाराष्ट्र",
+        description: "Power sprayer for pesticide and fertilizer application",
+        descriptionHi: "कीटनाशक और उर्वरक प्रयोग के लिए पावर स्प्रेयर",
+        descriptionMr: "कीटकनाशक आणि खत वापरण्यासाठी पॉवर स्प्रेयर",
+        available: true,
+        year: 2022,
+        owner: "Sanjay Bhosale",
+        ownerPhone: "+91 98765 88888",
+        specifications: "500L tank capacity, 40L/min flow rate, boom width 12m",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='sprayerGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%234169E1'/><stop offset='100%' stop-color='%231E90FF'/></linearGradient></defs><rect fill='%23E6F3FF' width='400' height='300'/><rect fill='url(%23sprayerGrad)' x='50' y='120' width='300' height='80' rx='40'/><circle fill='%23333' cx='100' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='100' cy='240' r='12'/><circle fill='%23555' cx='300' cy='240' r='12'/><rect fill='%23FFD700' x='60' y='100' width='280' height='25' rx='8'/><rect fill='%23FFA500' x='180' y='130' width='40' height='50' rx='5'/><g stroke='%2332CD32' stroke-width='3' fill='none'><line x1='80' y1='80' x2='320' y2='80'/><line x1='90' y1='80' x2='90' y2='60'/><line x1='120' y1='80' x2='120' y2='60'/><line x1='150' y1='80' x2='150' y2='60'/><line x1='180' y1='80' x2='180' y2='60'/><line x1='210' y1='80' x2='210' y2='60'/><line x1='240' y1='80' x2='240' y2='60'/><line x1='270' y1='80' x2='270' y2='60'/><line x1='300' y1='80' x2='300' y2='60'/><line x1='310' y1='80' x2='310' y2='60'/></g><g fill='%2332CD32' opacity='0.6'><circle cx='90' cy='55' r='3'/><circle cx='120' cy='55' r='3'/><circle cx='150' cy='55' r='3'/><circle cx='180' cy='55' r='3'/><circle cx='210' cy='55' r='3'/><circle cx='240' cy='55' r='3'/><circle cx='270' cy='55' r='3'/><circle cx='300' cy='55' r='3'/><circle cx='310' cy='55' r='3'/></g><text x='200' y='165' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>SPRAYER</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='sprayerSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%234169E1'/><stop offset='100%' stop-color='%231E90FF'/></linearGradient></defs><rect fill='%23F0F8FF' width='400' height='300'/><ellipse fill='url(%23sprayerSide)' cx='200' cy='150' rx='150' ry='40'/><circle fill='%23333' cx='120' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='280' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='120' cy='230' r='11'/><circle fill='%23555' cx='280' cy='230' r='11'/><rect fill='%23FFD700' x='70' y='90' width='260' height='20' rx='10'/><rect fill='%23FFA500' x='180' y='120' width='40' height='40' rx='5'/><g stroke='%2332CD32' stroke-width='2' fill='none'><line x1='100' y1='70' x2='300' y2='70'/><g opacity='0.8'><line x1='120' y1='70' x2='120' y2='50'/><line x1='150' y1='70' x2='150' y2='45'/><line x1='180' y1='70' x2='180' y2='50'/><line x1='210' y1='70' x2='210' y2='45'/><line x1='240' y1='70' x2='240' y2='50'/><line x1='270' y1='70' x2='270' y2='45'/></g></g><g fill='%2332CD32' opacity='0.5'><circle cx='120' cy='45' r='2'/><circle cx='150' cy='40' r='2'/><circle cx='180' cy='45' r='2'/><circle cx='210' cy='40' r='2'/><circle cx='240' cy='45' r='2'/><circle cx='270' cy='40' r='2'/></g><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
+    },
+    {
+        id: 9,
+        name: "Disc Harrow",
+        nameHi: "डिस्क हैरो",
+        nameMr: "डिस्क हेरो",
+        category: "cultivator",
+        price: 450,
+        location: "Jalgaon, Maharashtra",
+        locationHi: "जलगांव, महाराष्ट्र",
+        locationMr: "जळगाव, महाराष्ट्र",
+        description: "Heavy-duty disc harrow for breaking up soil",
+        descriptionHi: "मिट्टी को तोड़ने के लिए हेवी-ड्यूटी डिस्क हैरो",
+        descriptionMr: "माती फोडण्यासाठी हेवी-ड्यूटी डिस्क हेरो",
+        available: false,
+        year: 2020,
+        owner: "Rajesh Kulkarni",
+        ownerPhone: "+91 98765 99999",
+        specifications: "20-disc harrow, 7-foot working width, hydraulic lift",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harrowGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23696969'/><stop offset='100%' stop-color='%232F4F4F'/></linearGradient></defs><rect fill='%23D3D3D3' width='400' height='300'/><rect fill='url(%23harrowGrad)' x='40' y='100' width='320' height='60' rx='8'/><g fill='%23333' stroke='%23000' stroke-width='2'><circle cx='80' cy='190' r='25'/><circle cx='120' cy='190' r='25'/><circle cx='160' cy='190' r='25'/><circle cx='200' cy='190' r='25'/><circle cx='240' cy='190' r='25'/><circle cx='280' cy='190' r='25'/><circle cx='320' cy='190' r='25'/></g><g fill='%23808080'><circle cx='80' cy='190' r='15'/><circle cx='120' cy='190' r='15'/><circle cx='160' cy='190' r='15'/><circle cx='200' cy='190' r='15'/><circle cx='240' cy='190' r='15'/><circle cx='280' cy='190' r='15'/><circle cx='320' cy='190' r='15'/></g><g fill='%23000' opacity='0.3'><path d='M75,185 Q80,190 85,185 Q80,195 75,190 Z'/><path d='M115,185 Q120,190 125,185 Q120,195 115,190 Z'/><path d='M155,185 Q160,190 165,185 Q160,195 155,190 Z'/><path d='M195,185 Q200,190 205,185 Q200,195 195,190 Z'/><path d='M235,185 Q240,190 245,185 Q240,195 235,190 Z'/><path d='M275,185 Q280,190 285,185 Q280,195 275,190 Z'/><path d='M315,185 Q320,190 325,185 Q320,195 315,190 Z'/></g><circle fill='%23333' cx='80' cy='240' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='320' cy='240' r='18' stroke='%23666' stroke-width='2'/><rect fill='%23FFD700' x='50' y='80' width='300' height='25' rx='8'/><text x='200' y='135' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>DISC HARROW</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harrowSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23696969'/><stop offset='100%' stop-color='%232F4F4F'/></linearGradient></defs><rect fill='%23F5F5F5' width='400' height='300'/><rect fill='url(%23harrowSide)' x='60' y='120' width='280' height='50' rx='8'/><g fill='%23333' stroke='%23000' stroke-width='2'><circle cx='100' cy='200' r='20'/><circle cx='140' cy='200' r='20'/><circle cx='180' cy='200' r='20'/><circle cx='220' cy='200' r='20'/><circle cx='260' cy='200' r='20'/><circle cx='300' cy='200' r='20'/></g><g fill='%23808080'><circle cx='100' cy='200' r='12'/><circle cx='140' cy='200' r='12'/><circle cx='180' cy='200' r='12'/><circle cx='220' cy='200' r='12'/><circle cx='260' cy='200' r='12'/><circle cx='300' cy='200' r='12'/></g><circle fill='%23333' cx='100' cy='240' r='15' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='240' r='15' stroke='%23666' stroke-width='2'/><rect fill='%23FFD700' x='70' y='100' width='260' height='25' rx='8'/><rect fill='%23FFA500' x='180' y='130' width='40' height='30' rx='5'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
+    },
+    {
+        id: 10,
+        name: "Water Pump Set",
+        nameHi: "वॉटर पंप सेट",
+        nameMr: "पाणी पंप सेट",
+        category: "irrigation",
+        price: 200,
+        location: "Ahmednagar, Maharashtra",
+        locationHi: "अहमदनगर, महाराष्ट्र",
+        locationMr: "अहमदनगर, महाराष्ट्र",
+        description: "High-capacity water pump for irrigation",
+        descriptionHi: "सिंचाई के लिए उच्च क्षमता वाला वॉटर पंप",
+        descriptionMr: "सिंचनासाठी उच्च क्षमतेचा पाणी पंप",
+        available: true,
+        year: 2021,
+        owner: "Meera Pawar",
+        ownerPhone: "+91 98765 10101",
+        specifications: "5 HP motor, 1000 GPH capacity, self-priming",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='pumpGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230080FF'/><stop offset='100%' stop-color='%230066CC'/></linearGradient></defs><rect fill='%23E6F2FF' width='400' height='300'/><rect fill='url(%23pumpGrad)' x='80' y='120' width='240' height='80' rx='15'/><circle fill='%23333' cx='120' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='280' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='120' cy='240' r='12'/><circle fill='%23555' cx='280' cy='240' r='12'/><rect fill='%23FFD700' x='90' y='100' width='220' height='25' rx='8'/><circle fill='%2300BFFF' cx='200' cy='160' r='30' stroke='%230080FF' stroke-width='3'/><g fill='%230066CC'><path d='M185,145 Q200,150 215,145 Q200,175 185,170 Q200,165 215,170 Q200,140 185,145'/></g><rect fill='%23FF6347' x='250' y='140' width='50' height='40' rx='8'/><rect fill='%2332CD32' x='100' y='140' width='50' height='40' rx='8'/><g stroke='%2300BFFF' stroke-width='4' fill='none' opacity='0.7'><path d='M50,80 Q70,70 90,80'/><path d='M310,80 Q330,70 350,80'/><path d='M50,90 Q70,80 90,90'/><path d='M310,90 Q330,80 350,90'/></g><text x='200' y='170' text-anchor='middle' fill='white' font-size='12' font-weight='bold'>PUMP</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='pumpSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230080FF'/><stop offset='100%' stop-color='%230066CC'/></linearGradient></defs><rect fill='%23F0F8FF' width='400' height='300'/><rect fill='url(%23pumpSide)' x='100' y='130' width='200' height='60' rx='12'/><circle fill='%23333' cx='130' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='270' cy='230' r='18' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='130' cy='230' r='11'/><circle fill='%23555' cx='270' cy='230' r='11'/><rect fill='%23FFD700' x='110' y='110' width='180' height='25' rx='8'/><circle fill='%2300BFFF' cx='200' cy='160' r='25' stroke='%230080FF' stroke-width='2'/><rect fill='%23FF6347' x='230' y='145' width='40' height='30' rx='5'/><rect fill='%2332CD32' x='130' y='145' width='40' height='30' rx='5'/><g stroke='%2300BFFF' stroke-width='3' fill='none' opacity='0.6'><path d='M80,90 Q90,80 100,90'/><path d='M300,90 Q310,80 320,90'/></g><path fill='%230066CC' d='M190,150 Q200,155 210,150 Q200,170 190,165 Q200,160 210,165 Q200,145 190,150'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
     }
 ];
 
