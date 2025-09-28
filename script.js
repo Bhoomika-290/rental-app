@@ -822,19 +822,23 @@ function login(event) {
         type: userType,
         name: email.split('@')[0]
     };
+   
+closeModal('loginModal');
+updateAuthUI(); // This will show the dashboard navigation
+
+// Navigate to dashboard after login
+showDashboard(userType);
+
+// Just show a success notification, no confirmation dialog
+showNotification(
+    getTranslation(
+        'Login successful! Welcome to your dashboard.',
+        'लॉगिन सफल! आपके डैशबोर्ड में आपका स्वागत है।',
+        'लॉगिन यशस्वी! तुमच्या डॅशबोर्डमध्ये स्वागत आहे.'
+    ),
+    'success'
+);
     
-    closeModal('loginModal');
-    updateAuthUI(); // This will show the dashboard navigation
-    
-    // Just show a success notification, no confirmation dialog
-    showNotification(
-        getTranslation(
-            'Login successful! Dashboard is now available in the navigation.',
-            'लॉगिन सफल! डैशबोर्ड अब नेवीगेशन में उपलब्ध है।',
-            'लॉगिन यशस्वी! डॅशबोर्ड आता नेव्हिगेशनमध्ये उपलब्ध आहे।'
-        ),
-        'success'
-    );
 }
 
 function register(event) {
@@ -865,19 +869,23 @@ function register(event) {
         location: location,
         type: userType
     };
+  
+closeModal('registerModal');
+updateAuthUI(); // This will show the dashboard navigation
+
+// Navigate to dashboard after registration
+showDashboard(userType);
+
+// Just show a success notification, no confirmation dialog
+showNotification(
+    getTranslation(
+        'Registration successful! Welcome to your dashboard.',
+        'पंजीकरण सफल! आपके डैशबोर्ड में आपका स्वागत है।',
+        'नोंदणी यशस्वी! तुमच्या डॅशबोर्डमध्ये स्वागत आहे.'
+    ),
+    'success'
+);
     
-    closeModal('registerModal');
-    updateAuthUI(); // This will show the dashboard navigation
-    
-    // Just show a success notification, no confirmation dialog
-    showNotification(
-        getTranslation(
-            'Registration successful! Dashboard is now available in the navigation.',
-            'पंजीकरण सफल! डैशबोर्ड अब नेवीगेशन में उपलब्ध है।',
-            'नोंदणी यशस्वी! डॅशबोर्ड आता नेव्हिगेशनमध्ये उपलब्ध आहे।'
-        ),
-        'success'
-    );
 }
 
 function logout() {
