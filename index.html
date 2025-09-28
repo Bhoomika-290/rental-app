@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmRent - Equipment Rental Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚜</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">🚜 FarmRent</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')" data-en="Home" data-hi="होम" data-mr="मुख्यपृष्ठ">Home</a></li>
+                <li><a href="#" onclick="showPage('equipment')" data-en="Equipment" data-hi="उपकरण" data-mr="उपकरणे">Equipment</a></li>
+                <li><a href="#" onclick="showPage('about')" data-en="About" data-hi="हमारे बारे में" data-mr="आमच्याबद्दल">About</a></li>
+                <li><a href="#" onclick="showPage('contact')" data-en="Contact" data-hi="संपर्क" data-mr="संपर्क">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <div class="language-switcher">
+                    <select id="languageSelect" onchange="changeLanguage()">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="mr">मराठी</option>
+                    </select>
+                </div>
+                <div id="authButtons">
+                    <a href="#" class="btn btn-secondary" onclick="showModal('loginModal')" data-en="Login" data-hi="लॉगिन" data-mr="लॉगिन">Login</a>
+                    <a href="#" class="btn btn-primary" onclick="showModal('registerModal')" data-en="Register" data-hi="पंजीकरण" data-mr="नोंदणी">Register</a>
+                </div>
+                <div id="userMenu" class="hidden">
+                    <span id="userName" class="user-name"></span>
+                    <button class="btn btn-secondary" onclick="logout()" data-en="Logout" data-hi="लॉगआउट" data-mr="लॉगआउट">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <h1 data-en="Rent Farm Equipment Easily" data-hi="आसानी से कृषि उपकरण किराए पर लें" data-mr="शेती उपकरणे सहज भाड्याने घ्या">Rent Farm Equipment Easily</h1>
+                <p data-en="Connect with equipment owners in your area. Affordable rates, quality machinery, and reliable service for modern farming." data-hi="अपने क्षेत्र के उपकरण मालिकों से जुड़ें। आधुनिक खेती के लिए किफायती दरें, गुणवत्तापूर्ण मशीनरी और विश्वसनीय सेवा।" data-mr="तुमच्या परिसरातील उपकरण मालकांशी जुडा. आधुनिक शेतीसाठी परवडणारे दर, दर्जेदार यंत्रे आणि विश्वसनीय सेवा.">Connect with equipment owners in your area. Affordable rates, quality machinery, and reliable service for modern farming.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary btn-large" onclick="showPage('equipment')" data-en="Book Now" data-hi="अभी बुक करें" data-mr="आता बुक करा">Book Now</a>
+                    <a href="#" class="btn btn-secondary btn-large" onclick="showModal('registerModal')" data-en="List Equipment" data-hi="उपकरण सूचीबद्ध करें" data-mr="उपकरणे यादी करा">List Equipment</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="container">
+                <h2 class="search-title" data-en="Find Equipment Near You" data-hi="अपने पास उपकरण खोजें" data-mr="तुमच्या जवळील उपकरणे शोधा">Find Equipment Near You</h2>
+                <form class="search-form" onsubmit="searchEquipment(event)">
+                    <div class="search-group">
+                        <label data-en="Equipment Type" data-hi="उपकरण प्रकार" data-mr="उपकरण प्रकार">Equipment Type</label>
+                        <select id="searchType">
+                            <option value="" data-en="All Equipment" data-hi="सभी उपकरण" data-mr="सर्व उपकरणे">All Equipment</option>
+                            <option value="tractor" data-en="Tractor" data-hi="ट्रैक्टर" data-mr="ट्रॅक्टर">Tractor</option>
+                            <option value="harvester" data-en="Harvester" data-hi="हार्वेस्टर" data-mr="हार्वेस्टर">Harvester</option>
+                            <option value="cultivator" data-en="Cultivator" data-hi="कल्टीवेटर" data-mr="कल्टिव्हेटर">Cultivator</option>
+                            <option value="seeder" data-en="Seeder" data-hi="सीडर" data-mr="सीडर">Seeder</option>
+                            <option value="plough" data-en="Plough" data-hi="हल" data-mr="नांगर">Plough</option>
+                        </select>
+                    </div>
+                    <div class="search-group">
+                        <label data-en="Location" data-hi="स्थान" data-mr="ठिकाण">Location</label>
+                        <input type="text" id="searchLocation" placeholder="Enter city or area" data-en-placeholder="Enter city or area" data-hi-placeholder="शहर या क्षेत्र दर्ज करें" data-mr-placeholder="शहर किंवा क्षेत्र प्रविष्ट करा">
+                    </div>
+                    <div class="search-group">
+                        <label data-en="Max Price/Day" data-hi="अधिकतम मूल्य/दिन" data-mr="कमाल किंमत/दिवस">Max Price/Day</label>
+                        <input type="number" id="searchPrice" placeholder="₹0" min="0">
+                    </div>
+                    <div class="search-group">
+                        <label data-en="From Date" data-hi="से दिनांक" data-mr="पासून दिनांक">From Date</label>
+                        <input type="date" id="searchFromDate">
+                    </div>
+                    <div class="search-group">
+                        <label data-en="To Date" data-hi="तक दिनांक" data-mr="पर्यंत दिनांक">To Date</label>
+                        <input type="date" id="searchToDate">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-search" data-en="Search Equipment" data-hi="उपकरण खोजें" data-mr="उपकरणे शोधा">Search Equipment</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Featured Equipment -->
+        <section class="equipment-section">
+            <div class="container">
+                <h2 class="section-title" data-en="Featured Equipment" data-hi="विशेष उपकरण" data-mr="वैशिष्ट्यीकृत उपकरणे">Featured Equipment</h2>
+                <div class="equipment-grid" id="equipmentGrid"></div>
+                <div class="section-footer">
+                    <a href="#" onclick="showPage('equipment')" class="btn btn-outline" data-en="View All Equipment" data-hi="सभी उपकरण देखें" data-mr="सर्व उपकरणे पहा">View All Equipment</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>500+</h3>
+                        <p data-en="Equipment Listed" data-hi="सूचीबद्ध उपकरण" data-mr="यादीबद्ध उपकरणे">Equipment Listed</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>1000+</h3>
+                        <p data-en="Happy Farmers" data-hi="खुश किसान" data-mr="खुश शेतकरी">Happy Farmers</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p data-en="Cities Covered" data-hi="शहर कवर किए" data-mr="शहरे व्यापलेली">Cities Covered</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p data-en="Support Available" data-hi="सहायता उपलब्ध" data-mr="सहाय्य उपलब्ध">Support Available</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Equipment Page -->
+    <div id="equipmentPage" class="page hidden">
+        <section class="equipment-section page-section">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title" data-en="All Equipment" data-hi="सभी उपकरण" data-mr="सर्व उपकरणे">All Equipment</h1>
+                    <div class="filter-controls">
+                        <select id="categoryFilter" onchange="filterEquipment()">
+                            <option value="" data-en="All Categories" data-hi="सभी श्रेणियां" data-mr="सर्व श्रेणी">All Categories</option>
+                            <option value="tractor" data-en="Tractors" data-hi="ट्रैक्टर" data-mr="ट्रॅक्टर">Tractors</option>
+                            <option value="harvester" data-en="Harvesters" data-hi="हार्वेस्टर" data-mr="हार्वेस्टर">Harvesters</option>
+                            <option value="cultivator" data-en="Cultivators" data-hi="कल्टीवेटर" data-mr="कल्टिव्हेटर">Cultivators</option>
+                            <option value="seeder" data-en="Seeders" data-hi="सीडर" data-mr="सीडर">Seeders</option>
+                            <option value="plough" data-en="Ploughs" data-hi="हल" data-mr="नांगर">Ploughs</option>
+                        </select>
+                        <select id="sortFilter" onchange="filterEquipment()">
+                            <option value="name" data-en="Sort by Name" data-hi="नाम के अनुसार" data-mr="नावानुसार">Sort by Name</option>
+                            <option value="price" data-en="Sort by Price" data-hi="मूल्य के अनुसार" data-mr="किंमतीनुसार">Sort by Price</option>
+                            <option value="availability" data-en="Sort by Availability" data-hi="उपलब्धता के अनुसार" data-mr="उपलब्धतेनुसार">Sort by Availability</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="equipment-grid" id="allEquipmentGrid"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="aboutPage" class="page hidden">
+        <section class="about-section page-section">
+            <div class="container">
+                <h1 class="page-title" data-en="About FarmRent" data-hi="फार्मरेंट के बारे में" data-mr="फार्मरेंट बद्दल">About FarmRent</h1>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p data-en="FarmRent is a revolutionary platform connecting farmers with modern agricultural equipment. We believe that every farmer should have access to quality machinery to improve their productivity and livelihood." data-hi="फार्मरेंट एक क्रांतिकारी प्लेटफॉर्म है जो किसानों को आधुनिक कृषि उपकरणों से जोड़ता है। हमारा मानना है कि हर किसान को अपनी उत्पादकता और आजीविका में सुधार के लिए गुणवत्तापूर्ण मशीनरी तक पहुंच होनी चाहिए।" data-mr="फार्मरेंट हे एक क्रांतिकारी प्लॅटफॉर्म आहे जे शेतकऱ्यांना आधुनिक कृषी उपकरणांशी जोडते. आमचा विश्वास आहे की प्रत्येक शेतकऱ्याला त्यांची उत्पादकता आणि जीविका सुधारण्यासाठी दर्जेदार यंत्रे उपलब्ध असावीत.">FarmRent is a revolutionary platform connecting farmers with modern agricultural equipment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contactPage" class="page hidden">
+        <section class="contact-section page-section">
+            <div class="container">
+                <h1 class="page-title" data-en="Contact Us" data-hi="हमसे संपर्क करें" data-mr="आमच्याशी संपर्क करा">Contact Us</h1>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3 data-en="Get in Touch" data-hi="संपर्क में रहें" data-mr="संपर्कात रहा">Get in Touch</h3>
+                        <p>📞 +91 98765 43210</p>
+                        <p>📧 info@farmrent.com</p>
+                        <p>📍 Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Customer Dashboard -->
+    <div id="customerDashboard" class="dashboard hidden">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <h1 data-en="Customer Dashboard" data-hi="ग्राहक डैशबोर्ड" data-mr="ग्राहक डॅशबोर्ड">Customer Dashboard</h1>
+                    <p data-en="Manage your rentals and bookings" data-hi="अपने किराए और बुकिंग का प्रबंधन करें" data-mr="तुमची भाडे आणि बुकिंग व्यवस्थापित करा">Manage your rentals and bookings</p>
+                </div>
+                <button class="btn btn-primary" onclick="showPage('equipment')" data-en="Browse Equipment" data-hi="उपकरण ब्राउज़ करें" data-mr="उपकरणे ब्राउझ करा">Browse Equipment</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🔄</div>
+                    <h3>5</h3>
+                    <p data-en="Active Rentals" data-hi="सक्रिय किराए" data-mr="सक्रिय भाडे">Active Rentals</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <h3>₹15,000</h3>
+                    <p data-en="Total Spent" data-hi="कुल खर्च" data-mr="एकूण खर्च">Total Spent</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <h3>12</h3>
+                    <p data-en="Completed Rentals" data-hi="पूर्ण किराए" data-mr="पूर्ण भाडे">Completed Rentals</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <h3>4.8</h3>
+                    <p data-en="Average Rating" data-hi="औसत रेटिंग" data-mr="सरासरी रेटिंग">Average Rating</p>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="dashboard-section">
+                    <h3 data-en="Current Rentals" data-hi="वर्तमान किराए" data-mr="सध्याचे भाडे">Current Rentals</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th data-en="Equipment" data-hi="उपकरण" data-mr="उपकरण">Equipment</th>
+                                    <th data-en="Owner" data-hi="मालिक" data-mr="मालक">Owner</th>
+                                    <th data-en="Days" data-hi="दिन" data-mr="दिवस">Days</th>
+                                    <th data-en="Total" data-hi="कुल" data-mr="एकूण">Total</th>
+                                    <th data-en="Status" data-hi="स्थिति" data-mr="स्थिती">Status</th>
+                                    <th data-en="Action" data-hi="कार्य" data-mr="कृती">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="equipment-cell">
+                                            <div class="equipment-image">🚜</div>
+                                            <div class="equipment-info">
+                                                <strong>Tractor John Deere 5310</strong>
+                                                <small>Pune, Maharashtra</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Rahul Sharma</td>
+                                    <td>3</td>
+                                    <td>₹4,500</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td><button class="btn btn-sm btn-outline">Return</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="equipment-cell">
+                                            <div class="equipment-image">🌾</div>
+                                            <div class="equipment-info">
+                                                <strong>Harvester Mahindra</strong>
+                                                <small>Nashik, Maharashtra</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Suresh Patel</td>
+                                    <td>5</td>
+                                    <td>₹10,000</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td><button class="btn btn-sm btn-outline">Return</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 data-en="Rental History" data-hi="किराया इतिहास" data-mr="भाडे इतिहास">Rental History</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th data-en="Equipment" data-hi="उपकरण" data-mr="उपकरण">Equipment</th>
+                                    <th data-en="Date" data-hi="दिनांक" data-mr="दिनांक">Date</th>
+                                    <th data-en="Duration" data-hi="अवधि" data-mr="कालावधी">Duration</th>
+                                    <th data-en="Amount" data-hi="राशि" data-mr="रक्कम">Amount</th>
+                                    <th data-en="Rating" data-hi="रेटिंग" data-mr="रेटिंग">Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Plough Set</td>
+                                    <td>Sept 15-18, 2025</td>
+                                    <td>4 days</td>
+                                    <td>₹1,200</td>
+                                    <td>⭐⭐⭐⭐⭐</td>
+                                </tr>
+                                <tr>
+                                    <td>Seeder Machine</td>
+                                    <td>Sept 10-12, 2025</td>
+                                    <td>3 days</td>
+                                    <td>₹900</td>
+                                    <td>⭐⭐⭐⭐☆</td>
+                                </tr>
+                                <tr>
+                                    <td>Cultivator Set</td>
+                                    <td>Sept 5-8, 2025</td>
+                                    <td>4 days</td>
+                                    <td>₹1,600</td>
+                                    <td>⭐⭐⭐⭐⭐</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Owner Dashboard -->
+    <div id="ownerDashboard" class="dashboard hidden">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <h1 data-en="Owner Dashboard" data-hi="मालिक डैशबोर्ड" data-mr="मालक डॅशबोर्ड">Owner Dashboard</h1>
+                    <p data-en="Manage your equipment and earnings" data-hi="अपने उपकरण और कमाई का प्रबंधन करें" data-mr="तुमची उपकरणे आणि कमाई व्यवस्थापित करा">Manage your equipment and earnings</p>
+                </div>
+                <button class="btn btn-primary" onclick="showModal('addEquipmentModal')" data-en="Add Equipment" data-hi="उपकरण जोड़ें" data-mr="उपकरण जोडा">Add Equipment</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <h3>8</h3>
+                    <p data-en="Listed Equipment" data-hi="सूचीबद्ध उपकरण" data-mr="यादीबद्ध उपकरणे">Listed Equipment</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <h3>₹45,000</h3>
+                    <p data-en="Total Earnings" data-hi="कुल कमाई" data-mr="एकूण कमाई">Total Earnings</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <h3>25</h3>
+                    <p data-en="Active Bookings" data-hi="सक्रिय बुकिंग" data-mr="सक्रिय बुकिंग">Active Bookings</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <h3>95%</h3>
+                    <p data-en="Utilization Rate" data-hi="उपयोग दर" data-mr="वापर दर">Utilization Rate</p>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="dashboard-section">
+                    <h3 data-en="Equipment Performance" data-hi="उपकरण प्रदर्शन" data-mr="उपकरण कामगिरी">Equipment Performance</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th data-en="Equipment" data-hi="उपकरण" data-mr="उपकरण">Equipment</th>
+                                    <th data-en="Customers" data-hi="ग्राहक" data-mr="ग्राहक">Customers</th>
+                                    <th data-en="Days Rented" data-hi="किराए के दिन" data-mr="भाड्याचे दिवस">Days Rented</th>
+                                    <th data-en="Earnings" data-hi="कमाई" data-mr="कमाई">Earnings</th>
+                                    <th data-en="Status" data-hi="स्थिति" data-mr="स्थिती">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="equipment-cell">
+                                            <div class="equipment-image">🚜</div>
+                                            <div class="equipment-info">
+                                                <strong>Tractor John Deere 5310</strong>
+                                                <small>₹1,500/day</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>8</td>
+                                    <td>45</td>
+                                    <td>₹67,500</td>
+                                    <td><span class="status-badge rented">Rented</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="equipment-cell">
+                                            <div class="equipment-image">🌾</div>
+                                            <div class="equipment-info">
+                                                <strong>Harvester Mahindra</strong>
+                                                <small>₹2,000/day</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>5</td>
+                                    <td>25</td>
+                                    <td>₹50,000</td>
+                                    <td><span class="status-badge available">Available</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="equipment-cell">
+                                            <div class="equipment-image">🛠️</div>
+                                            <div class="equipment-info">
+                                                <strong>Cultivator Set</strong>
+                                                <small>₹400/day</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>12</td>
+                                    <td>60</td>
+                                    <td>₹24,000</td>
+                                    <td><span class="status-badge available">Available</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 data-en="Current Bookings" data-hi="वर्तमान बुकिंग" data-mr="सध्याची बुकिंग">Current Bookings</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th data-en="Customer" data-hi="ग्राहक" data-mr="ग्राहक">Customer</th>
+                                    <th data-en="Equipment" data-hi="उपकरण" data-mr="उपकरण">Equipment</th>
+                                    <th data-en="Period" data-hi="अवधि" data-mr="कालावधी">Period</th>
+                                    <th data-en="Daily Rate" data-hi="दैनिक दर" data-mr="दैनंदिन दर">Daily Rate</th>
+                                    <th data-en="Total Profit" data-hi="कुल लाभ" data-mr="एकूण नफा">Total Profit</th>
+                                    <th data-en="Status" data-hi="स्थिति" data-mr="स्थिती">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="customer-info">
+                                            <strong>Raj Patel</strong>
+                                            <small>📞 +91 98765 11111</small>
+                                        </div>
+                                    </td>
+                                    <td>Tractor John Deere</td>
+                                    <td>Sept 28 - Oct 2<br><small>(5 days)</small></td>
+                                    <td>₹1,500</td>
+                                    <td>₹7,500</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="customer-info">
+                                            <strong>Suresh Kumar</strong>
+                                            <small>📞 +91 98765 22222</small>
+                                        </div>
+                                    </td>
+                                    <td>Harvester</td>
+                                    <td>Sept 29 - Oct 5<br><small>(7 days)</small></td>
+                                    <td>₹2,000</td>
+                                    <td>₹14,000</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="customer-info">
+                                            <strong>Amit Singh</strong>
+                                            <small>📞 +91 98765 33333</small>
+                                        </div>
+                                    </td>
+                                    <td>Cultivator Set</td>
+                                    <td>Oct 1 - Oct 4<br><small>(4 days)</small></td>
+                                    <td>₹400</td>
+                                    <td>₹1,600</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <div class="modal-header">
+                <h2 data-en="Welcome Back" data-hi="वापस स्वागत है" data-mr="पुन्हा स्वागत">Welcome Back</h2>
+                <p data-en="Login to your account" data-hi="अपने खाते में लॉगिन करें" data-mr="तुमच्या खात्यात लॉगिन करा">Login to your account</p>
+            </div>
+            <form id="loginForm" onsubmit="login(event)">
+                <div class="form-group">
+                    <label data-en="Email" data-hi="ईमेल" data-mr="ईमेल">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="Enter your email" data-en-placeholder="Enter your email" data-hi-placeholder="अपना ईमेल दर्ज करें" data-mr-placeholder="तुमचा ईमेल टाका">
+                </div>
+                <div class="form-group">
+                    <label data-en="Password" data-hi="पासवर्ड" data-mr="पासवर्ड">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password" data-en-placeholder="Enter your password" data-hi-placeholder="अपना पासवर्ड दर्ज करें" data-mr-placeholder="तुमचा पासवर्ड टाका">
+                </div>
+                <div class="form-group">
+                    <label data-en="Account Type" data-hi="खाता प्रकार" data-mr="खाते प्रकार">Account Type</label>
+                    <select id="loginUserType" required>
+                        <option value="customer" data-en="Customer" data-hi="ग्राहक" data-mr="ग्राहक">Customer</option>
+                        <option value="owner" data-en="Equipment Owner" data-hi="उपकरण मालिक" data-mr="उपकरण मालक">Equipment Owner</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" data-en="Login" data-hi="लॉगिन" data-mr="लॉगिन">Login</button>
+            </form>
+            <div class="modal-footer">
+                <p data-en="Don't have an account?" data-hi="खाता नहीं है?" data-mr="खाते नाही?">Don't have an account? 
+                    <a href="#" onclick="closeModal('loginModal'); showModal('registerModal')" data-en="Register here" data-hi="यहाँ पंजीकरण करें" data-mr="येथे नोंदणी करा">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <div class="modal-header">
+                <h2 data-en="Join FarmRent" data-hi="फार्मरेंट में शामिल हों" data-mr="फार्मरेंटमध्ये सामील व्हा">Join FarmRent</h2>
+                <p data-en="Create your account today" data-hi="आज ही अपना खाता बनाएं" data-mr="आजच तुमचे खाते तयार करा">Create your account today</p>
+            </div>
+            <form id="registerForm" onsubmit="register(event)">
+                <div class="form-group">
+                    <label data-en="Full Name" data-hi="पूरा नाम" data-mr="पूर्ण नाव">Full Name</label>
+                    <input type="text" id="registerName" required placeholder="Enter your full name" data-en-placeholder="Enter your full name" data-hi-placeholder="अपना पूरा नाम दर्ज करें" data-mr-placeholder="तुमचे पूर्ण नाव टाका">
+                </div>
+                <div class="form-group">
+                    <label data-en="Email" data-hi="ईमेल" data-mr="ईमेल">Email</label>
+                    <input type="email" id="registerEmail" required placeholder="Enter your email" data-en-placeholder="Enter your email" data-hi-placeholder="अपना ईमेल दर्ज करें" data-mr-placeholder="तुमचा ईमेल टाका">
+                </div>
+                <div class="form-group">
+                    <label data-en="Phone Number" data-hi="फोन नंबर" data-mr="फोन नंबर">Phone Number</label>
+                    <input type="tel" id="registerPhone" required placeholder="Enter your phone number" data-en-placeholder="Enter your phone number" data-hi-placeholder="अपना फोन नंबर दर्ज करें" data-mr-placeholder="तुमचा फोन नंबर टाका">
+                </div>
+                <div class="form-group">
+                    <label data-en="Location" data-hi="स्थान" data-mr="ठिकाण">Location</label>
+                    <input type="text" id="registerLocation" required placeholder="Enter your city/area" data-en-placeholder="Enter your city/area" data-hi-placeholder="अपना शहर/क्षेत्र दर्ज करें" data-mr-placeholder="तुमचे शहर/क्षेत्र टाका">
+                </div>
+                <div class="form-group">
+                    <label data-en="Password" data-hi="पासवर्ड" data-mr="पासवर्ड">Password</label>
+                    <input type="password" id="registerPassword" required placeholder="Create a password" data-en-placeholder="Create a password" data-hi-placeholder="पासवर्ड बनाएं" data-mr-placeholder="पासवर्ड तयार करा">
+                </div>
+                <div class="form-group">
+                    <label data-en="Account Type" data-hi="खाता प्रकार" data-mr="खाते प्रकार">Account Type</label>
+                    <select id="registerUserType" required>
+                        <option value="customer" data-en="Customer - I want to rent equipment" data-hi="ग्राहक - मैं उपकरण किराए पर लेना चाहता हूं" data-mr="ग्राहक - मला उपकरणे भाड्याने घ्यायची आहेत">Customer - I want to rent equipment</option>
+                        <option value="owner" data-en="Owner - I want to rent out my equipment" data-hi="मालिक - मैं अपना उपकरण किराए पर देना चाहता हूं" data-mr="मालक - मला माझी उपकरणे भाड्याने द्यायची आहेत">Owner - I want to rent out my equipment</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span data-en="I agree to the Terms and Conditions" data-hi="मैं नियम और शर्तों से सहमत हूं" data-mr="मी अटी आणि शर्तींशी सहमत आहे">I agree to the Terms and Conditions</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" data-en="Create Account" data-hi="खाता बनाएं" data-mr="खाते तयार करा">Create Account</button>
+            </form>
+            <div class="modal-footer">
+                <p data-en="Already have an account?" data-hi="पहले से खाता है?" data-mr="आधीच खाते आहे?">Already have an account? 
+                    <a href="#" onclick="closeModal('registerModal'); showModal('loginModal')" data-en="Login here" data-hi="यहाँ लॉगिन करें" data-mr="येथे लॉगिन करा">Login here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('bookingModal')">&times;</span>
+            <div class="modal-header">
+                <h2 data-en="Book Equipment" data-hi="उपकरण बुक करें" data-mr="उपकरण बुक करा">Book Equipment</h2>
+            </div>
+            <div id="bookingDetails"></div>
+            <form id="bookingForm" onsubmit="confirmBooking(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-en="From Date" data-hi="से दिनांक" data-mr="पासून दिनांक">From Date</label>
+                        <input type="date" id="bookingFromDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="To Date" data-hi="तक दिनांक" data-mr="पर्यंत दिनांक">To Date</label>
+                        <input type="date" id="bookingToDate" required>
+                    </div>
+                </div>
+                <div id="bookingCalculation" class="booking-calculation"></div>
+                <div class="form-group">
+                    <label data-en="Payment Method" data-hi="भुगतान विधि" data-mr="पेमेंट पद्धत">Payment Method</label>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="upi" required>
+                            <span class="payment-icon">📱</span>
+                            <span>UPI</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" required>
+                            <span class="payment-icon">💳</span>
+                            <span data-en="Card" data-hi="कार्ड" data-mr="कार्ड">Card</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cash" required>
+                            <span class="payment-icon">💵</span>
+                            <span data-en="Cash" data-hi="नकद" data-mr="रोकड">Cash</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" data-en="Confirm Booking" data-hi="बुकिंग की पुष्टि करें" data-mr="बुकिंग निश्चित करा">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Equipment Modal -->
+    <div id="addEquipmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addEquipmentModal')">&times;</span>
+            <div class="modal-header">
+                <h2 data-en="Add New Equipment" data-hi="नया उपकरण जोड़ें" data-mr="नवीन उपकरण जोडा">Add New Equipment</h2>
+            </div>
+            <form id="addEquipmentForm" onsubmit="addEquipment(event)">
+                <div class="form-group">
+                    <label data-en="Equipment Name" data-hi="उपकरण का नाम" data-mr="उपकरणाचे नाव">Equipment Name</label>
+                    <input type="text" required placeholder="e.g., Tractor John Deere 5310">
+                </div>
+                <div class="form-group">
+                    <label data-en="Category" data-hi="श्रेणी" data-mr="श्रेणी">Category</label>
+                    <select required>
+                        <option value="">Select Category</option>
+                        <option value="tractor">Tractor</option>
+                        <option value="harvester">Harvester</option>
+                        <option value="cultivator">Cultivator</option>
+                        <option value="seeder">Seeder</option>
+                        <option value="plough">Plough</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-en="Daily Rate (₹)" data-hi="दैनिक दर (₹)" data-mr="दैनंदिन दर (₹)">Daily Rate (₹)</label>
+                        <input type="number" required min="1" placeholder="1500">
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Year" data-hi="वर्ष" data-mr="वर्ष">Year</label>
+                        <input type="number" required min="2000" max="2025" placeholder="2020">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label data-en="Description" data-hi="विवरण" data-mr="वर्णन">Description</label>
+                    <textarea required placeholder="Describe your equipment features and condition"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" data-en="Add Equipment" data-hi="उपकरण जोड़ें" data-mr="उपकरण जोडा">Add Equipment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🚜 FarmRent</h3>
+                    <p data-en="Connecting farmers with quality equipment for modern agriculture. Making farming more efficient and profitable." data-hi="आधुनिक कृषि के लिए किसानों को गुणवत्तापूर्ण उपकरणों से जोड़ना। खेती को अधिक कुशल और लाभदायक बनाना।" data-mr="आधुनिक शेतीसाठी शेतकऱ्यांना दर्जेदार उपकरणांशी जोडणे. शेती अधिक कार्यक्षम आणि फायदेशीर बनवणे.">Connecting farmers with quality equipment for modern agriculture.</p>
+                    <div class="social-links">
+                        <a href="#">📘 Facebook</a>
+                        <a href="#">📷 Instagram</a>
+                        <a href="#">🐦 Twitter</a>
+                        <a href="#">📱 WhatsApp</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Quick Links" data-hi="त्वरित लिंक" data-mr="द्रुत दुवे">Quick Links</h3>
+                    <a href="#" onclick="showPage('about')" data-en="About Us" data-hi="हमारे बारे में" data-mr="आमच्याबद्दल">About Us</a>
+                    <a href="#" onclick="showPage('equipment')" data-en="Equipment" data-hi="उपकरण" data-mr="उपकरणे">Equipment</a>
+                    <a href="#" data-en="How it Works" data-hi="यह कैसे काम करता है" data-mr="हे कसे काम करते">How it Works</a>
+                    <a href="#" data-en="Support" data-hi="सहायता" data-mr="आधार">Support</a>
+                    <a href="#" data-en="Terms & Conditions" data-hi="नियम और शर्तें" data-mr="अटी आणि शर्ती">Terms & Conditions</a>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Contact Info" data-hi="संपर्क जानकारी" data-mr="संपर्क माहिती">Contact Info</h3>
+                    <div class="contact-item">📞 +91 98765 43210</div>
+                    <div class="contact-item">📧 info@farmrent.com</div>
+                    <div class="contact-item">📍 Mumbai, Maharashtra, India</div>
+                    <div class="contact-item">🕐 24/7 Support Available</div>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="For Equipment Owners" data-hi="उपकरण मालिकों के लिए" data-mr="उपकरण मालकांसाठी">For Equipment Owners</h3>
+                    <a href="#" onclick="showModal('registerModal')" data-en="List Your Equipment" data-hi="अपना उपकरण सूचीबद्ध करें" data-mr="तुमची उपकरणे यादी करा">List Your Equipment</a>
+                    <a href="#" data-en="Owner Benefits" data-hi="मालिक लाभ" data-mr="मालक फायदे">Owner Benefits</a>
+                    <a href="#" data-en="Pricing Guide" data-hi="मूल्य निर्धारण गाइड" data-mr="किंमत मार्गदर्शक">Pricing Guide</a>
+                    <a href="#" data-en="Safety Tips" data-hi="सुरक्षा सुझाव" data-mr="सुरक्षा टिपा">Safety Tips</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FarmRent. <span data-en="All rights reserved. Made with ❤️ for farmers." data-hi="सभी अधिकार सुरक्षित। किसानों के लिए ❤️ से बनाया गया।" data-mr="सर्व हक्क राखीव. शेतकऱ्यांसाठी ❤️ ने बनवले.">All rights reserved. Made with ❤️ for farmers.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

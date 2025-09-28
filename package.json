@@ -1,0 +1,36 @@
+{
+  "name": "farm-equipment-rental",
+  "version": "1.0.0",
+  "description": "A comprehensive multilingual web platform for farm equipment rental",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8000 -o",
+    "dev": "http-server -p 3000 -o",
+    "build": "echo 'No build step required for vanilla HTML/CSS/JS'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linting configured'"
+  },
+  "keywords": [
+    "agriculture",
+    "farming",
+    "equipment-rental",
+    "multilingual",
+    "responsive",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "FarmRent Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/farm-equipment-rental.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/farm-equipment-rental/issues"
+  },
+  "homepage": "https://yourusername.github.io/farm-equipment-rental"
+}
