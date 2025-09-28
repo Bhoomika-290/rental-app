@@ -281,9 +281,11 @@ nav {
         rgba(44, 85, 48, 0.8) 0%,
         rgba(166, 124, 82, 0.6) 100%
     ),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="farm" patternUnits="userSpaceOnUse" width="200" height="200"><rect fill="%234a7c59" width="200" height="200"/><g fill="%23a67c52" opacity="0.4"><circle cx="50" cy="50" r="30"/><rect x="120" y="30" width="60" height="40" rx="10"/><circle cx="150" cy="150" r="25"/></g></pattern></defs><rect width="1200" height="800" fill="url(%23farm)"/><g fill="%23ffffff" opacity="0.1"><path d="M200,400 Q400,300 600,400 T1000,400" stroke="%23ffffff" stroke-width="2" fill="none"/><circle cx="300" cy="200" r="100" fill="%23ffffff" opacity="0.05"/><circle cx="900" cy="600" r="150" fill="%23ffffff" opacity="0.05"/></g></svg>') center/cover;
+    url('https://richmondbrothersequipment.com/wp-content/uploads/2024/06/The-Importance-of-Cultivator-Shovels.jpg') center/cover;
+    background-attachment: fixed;
     z-index: -1;
 }
+
 
 .hero-content {
     position: relative;
