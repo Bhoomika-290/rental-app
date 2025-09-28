@@ -1,11 +1,11 @@
-// Enhanced JavaScript with 10 Equipment Items and 3D Models
+// Global Variables
 let currentLanguage = 'en';
 let currentUser = null;
 let currentEquipment = null;
 let equipmentData = [];
 let filteredEquipment = [];
 
-// Enhanced Equipment Database with 10 Items
+// Equipment Data with Multiple Image Views
 const equipmentDatabase = [
     {
         id: 1,
@@ -17,15 +17,19 @@ const equipmentDatabase = [
         location: "Pune, Maharashtra",
         locationHi: "पुणे, महाराष्ट्र",
         locationMr: "पुणे, महाराष्ट्र",
-        description: "50 HP tractor perfect for farming operations with power steering",
-        descriptionHi: "पावर स्टीयरिंग के साथ खेती के संचालन के लिए उत्तम 50 एचपी ट्रैक्टर",
-        descriptionMr: "पॉवर स्टिअरिंगसह शेती कामांसाठी परिपूर्ण 50 एचपी ट्रॅक्टर",
+        description: "50 HP tractor perfect for farming operations",
+        descriptionHi: "खेती के संचालन के लिए उत्तम 50 एचपी ट्रैक्टर",
+        descriptionMr: "शेती कामांसाठी परिपूर्ण 50 एचपी ट्रॅक्टर",
         available: true,
         year: 2020,
         owner: "Rahul Sharma",
         ownerPhone: "+91 98765 11111",
-        specifications: "50 HP, 4WD, Power Steering, Air Conditioning",
-        model3d: "tractor"
+        specifications: "50 HP, 4WD, Power Steering",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='tractorGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23228B22'/><stop offset='100%' stop-color='%23006400'/></linearGradient></defs><rect fill='%2387CEEB' width='400' height='300'/><rect fill='url(%23tractorGrad)' x='50' y='100' width='300' height='120' rx='20'/><circle fill='%23333' cx='100' cy='250' r='35' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='300' cy='250' r='35' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='100' cy='250' r='20'/><circle fill='%23555' cx='300' cy='250' r='20'/><rect fill='%23FFD700' x='80' y='80' width='240' height='30' rx='10'/><rect fill='%23FF6347' x='180' y='110' width='40' height='60' rx='5'/><text x='200' y='140' text-anchor='middle' fill='white' font-size='12' font-weight='bold'>JOHN DEERE</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='tractorSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23228B22'/><stop offset='100%' stop-color='%23006400'/></linearGradient></defs><rect fill='%23F0E68C' width='400' height='300'/><path fill='url(%23tractorSide)' d='M50,120 L320,120 L320,200 L280,200 L280,180 L120,180 L120,200 L50,200 Z'/><circle fill='%23333' cx='100' cy='240' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='270' cy='240' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='100' cy='240' r='18'/><circle fill='%23555' cx='270' cy='240' r='18'/><rect fill='%23FFD700' x='60' y='100' width='200' height='25' rx='8'/><rect fill='%23FF6347' x='280' y='130' width='30' height='50' rx='5'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='tractorFront' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23228B22'/><stop offset='100%' stop-color='%23006400'/></linearGradient></defs><rect fill='%23E6E6FA' width='400' height='300'/><rect fill='url(%23tractorFront)' x='120' y='80' width='160' height='140' rx='15'/><circle fill='%23333' cx='150' cy='250' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='250' cy='250' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='150' cy='250' r='15'/><circle fill='%23555' cx='250' cy='250' r='15'/><rect fill='%23FFD700' x='130' y='60' width='140' height='25' rx='8'/><rect fill='%23FF6347' x='180' y='90' width='40' height='60' rx='5'/><rect fill='%234169E1' x='185' y='95' width='30' height='25' rx='3'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Front View</text></svg>"
+        ]
     },
     {
         id: 2,
@@ -37,15 +41,18 @@ const equipmentDatabase = [
         location: "Nashik, Maharashtra",
         locationHi: "नासिक, महाराष्ट्र",
         locationMr: "नाशिक, महाराष्ट्र",
-        description: "Efficient combine harvester for wheat and rice with 4m cutting width",
-        descriptionHi: "4 मीटर कटिंग चौड़ाई के साथ गेहूं और चावल के लिए कुशल कंबाइन हार्वेस्टर",
-        descriptionMr: "4 मीटर कटिंग रुंदीसह गहू आणि भातासाठी कार्यक्षम कंबाइन हार्वेस्टर",
+        description: "Efficient combine harvester for wheat and rice",
+        descriptionHi: "गेहूं और चावल के लिए कुशल कंबाइन हार्वेस्टर",
+        descriptionMr: "गहू आणि भातासाठी कार्यक्षम कंबाइन हार्वेस्टर",
         available: false,
         year: 2019,
         owner: "Suresh Patel",
         ownerPhone: "+91 98765 22222",
-        specifications: "Self-propelled, 120 HP engine, 4m cutting width, GPS enabled",
-        model3d: "harvester"
+        specifications: "Self-propelled, 120 HP engine, 4m cutting width",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harvesterGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23FF6347'/><stop offset='100%' stop-color='%23DC143C'/></linearGradient></defs><rect fill='%23FFE4E1' width='400' height='300'/><rect fill='url(%23harvesterGrad)' x='30' y='80' width='340' height='140' rx='15'/><circle fill='%23333' cx='80' cy='250' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='320' cy='250' r='30' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='80' cy='250' r='18'/><circle fill='%23555' cx='320' cy='250' r='18'/><rect fill='%23FFD700' x='40' y='60' width='320' height='25' rx='8'/><rect fill='%23FFA500' x='60' y='90' width='280' height='20' rx='5'/><rect fill='%234169E1' x='150' y='120' width='100' height='40' rx='5'/><path fill='%23228B22' d='M50,220 L100,210 L150,220 L200,210 L250,220 L300,210 L350,220 L350,240 L50,240 Z'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='harvesterSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23FF6347'/><stop offset='100%' stop-color='%23DC143C'/></linearGradient></defs><rect fill='%23F0F8FF' width='400' height='300'/><path fill='url(%23harvesterSide)' d='M40,100 L360,100 L360,180 L320,180 L320,160 L120,160 L120,180 L80,180 L80,200 L40,200 Z'/><circle fill='%23333' cx='100' cy='240' r='28' stroke='%23666' stroke-width='3'/><circle fill='%23333' cx='300' cy='240' r='28' stroke='%23666' stroke-width='3'/><circle fill='%23555' cx='100' cy='240' r='16'/><circle fill='%23555' cx='300' cy='240' r='16'/><rect fill='%23FFD700' x='50' y='80' width='300' height='25' rx='8'/><rect fill='%234169E1' x='150' y='110' width='100' height='35' rx='5'/><path fill='%23228B22' d='M60,200 L340,200 L340,220 L60,220 Z'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
     },
     {
         id: 3,
@@ -57,155 +64,86 @@ const equipmentDatabase = [
         location: "Aurangabad, Maharashtra",
         locationHi: "औरंगाबाद, महाराष्ट्र",
         locationMr: "औरंगाबाद, महाराष्ट्र",
-        description: "Complete 9-tine cultivator set for soil preparation and weeding",
-        descriptionHi: "मिट्टी की तैयारी और निराई के लिए पूरा 9-टाइन कल्टीवेटर सेट",
-        descriptionMr: "मातीच्या तयारी आणि निदाणीसाठी संपूर्ण 9-टाइन कल्टिव्हेटर सेट",
+        description: "Complete cultivator set for soil preparation",
+        descriptionHi: "मिट्टी की तैयारी के लिए पूरा कल्टीवेटर सेट",
+        descriptionMr: "मातीच्या तयारीसाठी संपूर्ण कल्टिव्हेटर सेट",
         available: true,
         year: 2021,
         owner: "Amit Singh",
         ownerPhone: "+91 98765 33333",
-        specifications: "9-tine cultivator, adjustable depth control, spring loaded",
-        model3d: "cultivator"
+        specifications: "9-tine cultivator, adjustable depth control",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='cultivatorGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23DEB887' width='400' height='300'/><rect fill='url(%23cultivatorGrad)' x='50' y='100' width='300' height='80' rx='10'/><g stroke='%23333' stroke-width='4' fill='%23333'><line x1='100' y1='180' x2='100' y2='250'/><line x1='130' y1='180' x2='130' y2='260'/><line x1='160' y1='180' x2='160' y2='250'/><line x1='190' y1='180' x2='190' y2='260'/><line x1='220' y1='180' x2='220' y2='250'/><line x1='250' y1='180' x2='250' y2='260'/><line x1='280' y1='180' x2='280' y2='250'/><line x1='310' y1='180' x2='310' y2='260'/><line x1='340' y1='180' x2='340' y2='250'/></g><g fill='%23654321'><polygon points='95,250 105,250 100,270'/><polygon points='125,260 135,260 130,280'/><polygon points='155,250 165,250 160,270'/><polygon points='185,260 195,260 190,280'/><polygon points='215,250 225,250 220,270'/><polygon points='245,260 255,260 250,280'/><polygon points='275,250 285,250 280,270'/><polygon points='305,260 315,260 310,280'/><polygon points='335,250 345,250 340,270'/></g><rect fill='%23FFD700' x='60' y='80' width='280' height='25' rx='8'/><text x='200' y='150' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>CULTIVATOR</text><text x='200' y='290' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='cultivatorSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23F5DEB3' width='400' height='300'/><rect fill='url(%23cultivatorSide)' x='80' y='120' width='240' height='60' rx='8'/><g stroke='%23333' stroke-width='3' fill='%23333'><path d='M100,180 L100,220 L95,240 L105,240 Z'/><path d='M140,180 L140,230 L135,250 L145,250 Z'/><path d='M180,180 L180,220 L175,240 L185,240 Z'/><path d='M220,180 L220,230 L215,250 L225,250 Z'/><path d='M260,180 L260,220 L255,240 L265,240 Z'/><path d='M300,180 L300,230 L295,250 L305,250 Z'/></g><rect fill='%23FFD700' x='90' y='100' width='220' height='25' rx='8'/><circle fill='%23666' cx='120' cy='110' r='8'/><circle fill='%23666' cx='280' cy='110' r='8'/><text x='200' y='290' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
     },
     {
         id: 4,
-        name: "Precision Seeder Machine",
-        nameHi: "प्रिसिजन सीडर मशीन",
-        nameMr: "प्रिसिजन सीडर मशीन",
+        name: "Seeder Machine",
+        nameHi: "सीडर मशीन",
+        nameMr: "सीडर मशीन",
         category: "seeder",
         price: 300,
         location: "Kolhapur, Maharashtra",
         locationHi: "कोल्हापुर, महाराष्ट्र",
         locationMr: "कोल्हापूर, महाराष्ट्र",
-        description: "6-row precision seeder for accurate seed placement with fertilizer attachment",
-        descriptionHi: "उर्वरक अटैचमेंट के साथ सटीक बीज रखने के लिए 6-पंक्ति प्रिसिजन सीडर",
-        descriptionMr: "खत संलग्नकासह अचूक बीज लावणीसाठी 6-पंक्ती प्रिसिजन सीडर",
+        description: "Precision seeder for accurate seed placement",
+        descriptionHi: "सटीक बीज रखने के लिए सटीक सीडर",
+        descriptionMr: "अचूक बीज लावणीसाठी अचूक सीडर",
         available: true,
         year: 2022,
         owner: "Priya Deshmukh",
         ownerPhone: "+91 98765 44444",
-        specifications: "6-row seeder, adjustable seed rate, fertilizer attachment",
-        model3d: "seeder"
+        specifications: "6-row seeder, adjustable seed rate",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='seederGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2332CD32'/><stop offset='100%' stop-color='%23228B22'/></linearGradient></defs><rect fill='%2387CEEB' width='400' height='300'/><rect fill='url(%23seederGrad)' x='50' y='100' width='300' height='80' rx='8'/><circle fill='%23333' cx='100' cy='220' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='300' cy='220' r='25' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='100' cy='220' r='15'/><circle fill='%23555' cx='300' cy='220' r='15'/><rect fill='%23FFD700' x='60' y='80' width='280' height='25' rx='8'/><g fill='%23FFA500'><rect x='80' y='110' width='40' height='60' rx='5'/><rect x='130' y='110' width='40' height='60' rx='5'/><rect x='180' y='110' width='40' height='60' rx='5'/><rect x='230' y='110' width='40' height='60' rx='5'/><rect x='280' y='110' width='40' height='60' rx='5'/></g><g fill='%23fff' opacity='0.8'><circle cx='100' cy='140' r='8'/><circle cx='150' cy='140' r='8'/><circle cx='200' cy='140' r='8'/><circle cx='250' cy='140' r='8'/><circle cx='300' cy='140' r='8'/></g><text x='200' y='155' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>SEEDER</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='seederSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2332CD32'/><stop offset='100%' stop-color='%23228B22'/></linearGradient></defs><rect fill='%23F0FFF0' width='400' height='300'/><rect fill='url(%23seederSide)' x='80' y='120' width='240' height='60' rx='8'/><circle fill='%23333' cx='120' cy='220' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='280' cy='220' r='22' stroke='%23666' stroke-width='2'/><circle fill='%23555' cx='120' cy='220' r='13'/><circle fill='%23555' cx='280' cy='220' r='13'/><rect fill='%23FFD700' x='90' y='100' width='220' height='25' rx='8'/><g fill='%23FFA500'><rect x='100' y='130' width='30' height='40' rx='3'/><rect x='140' y='130' width='30' height='40' rx='3'/><rect x='180' y='130' width='30' height='40' rx='3'/><rect x='220' y='130' width='30' height='40' rx='3'/><rect x='260' y='130' width='30' height='40' rx='3'/></g><g stroke='%23333' stroke-width='2'><line x1='115' y1='170' x2='115' y2='200'/><line x1='155' y1='170' x2='155' y2='200'/><line x1='195' y1='170' x2='195' y2='200'/><line x1='235' y1='170' x2='235' y2='200'/><line x1='275' y1='170' x2='275' y2='200'/></g><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
     },
     {
         id: 5,
-        name: "Reversible Plough Set",
-        nameHi: "रिवर्सिबल हल सेट",
-        nameMr: "रिव्हर्सिबल नांगर सेट",
+        name: "Plough Set",
+        nameHi: "हल सेट",
+        nameMr: "नांगर सेट",
         category: "plough",
         price: 250,
         location: "Solapur, Maharashtra",
         locationHi: "सोलापुर, महाराष्ट्र",
         locationMr: "सोलापूर, महाराष्ट्र",
-        description: "3-bottom reversible plough set for efficient field preparation",
-        descriptionHi: "कुशल खेत तैयारी के लिए 3-बॉटम रिवर्सिबल हल सेट",
-        descriptionMr: "कार्यक्षम शेत तयारीसाठी 3-बॉटम रिव्हर्सिबल नांगर सेट",
+        description: "Traditional plough set for field preparation",
+        descriptionHi: "खेत की तैयारी के लिए पारंपरिक हल सेट",
+        descriptionMr: "शेत तयारीसाठी पारंपारिक नांगर सेट",
         available: true,
         year: 2021,
         owner: "Ganesh Kale",
         ownerPhone: "+91 98765 55555",
-        specifications: "3-bottom reversible plough, adjustable width, heavy duty",
-        model3d: "plough"
+        specifications: "3-bottom reversible plough, adjustable width",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='ploughGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23DEB887' width='400' height='300'/><rect fill='url(%23ploughGrad)' x='50' y='120' width='300' height='40' rx='5'/><g fill='%23333'><path d='M100,160 L100,210 L120,220 L130,200 L120,180 Z'/><path d='M150,160 L150,210 L170,220 L180,200 L170,180 Z'/><path d='M200,160 L200,210 L220,220 L230,200 L220,180 Z'/><path d='M250,160 L250,210 L270,220 L280,200 L270,180 Z'/><path d='M300,160 L300,210 L320,220 L330,200 L320,180 Z'/></g><rect fill='%23FFD700' x='60' y='100' width='280' height='25' rx='8'/><circle fill='%23666' cx='80' cy='135' r='8'/><circle fill='%23666' cx='320' cy='135' r='8'/><g fill='%23A0522D'><rect x='110' y='190' width='15' height='30' rx='3'/><rect x='160' y='190' width='15' height='30' rx='3'/><rect x='210' y='190' width='15' height='30' rx='3'/><rect x='260' y='190' width='15' height='30' rx='3'/><rect x='310' y='190' width='15' height='30' rx='3'/></g><text x='200' y='145' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>PLOUGH</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>",
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='ploughSide' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%238B4513'/><stop offset='100%' stop-color='%23654321'/></linearGradient></defs><rect fill='%23F5DEB3' width='400' height='300'/><rect fill='url(%23ploughSide)' x='80' y='130' width='240' height='35' rx='5'/><g fill='%23333'><path d='M120,165 L120,200 L135,210 L140,190 Z'/><path d='M180,165 L180,200 L195,210 L200,190 Z'/><path d='M240,165 L240,200 L255,210 L260,190 Z'/></g><rect fill='%23FFD700' x='90' y='110' width='220' height='25' rx='8'/><circle fill='%23666' cx='110' cy='122' r='6'/><circle fill='%23666' cx='290' cy='122' r='6'/><g fill='%23A0522D'><rect x='125' y='185' width='12' height='25' rx='2'/><rect x='185' y='185' width='12' height='25' rx='2'/><rect x='245' y='185' width='12' height='25' rx='2'/></g><line stroke='%23333' stroke-width='2' x1='100' y1='140' x2='300' y2='140'/><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Side View</text></svg>"
+        ]
     },
     {
         id: 6,
-        name: "Heavy Duty Rotavator",
-        nameHi: "हेवी ड्यूटी रोटावेटर",
-        nameMr: "हेवी ड्यूटी रोटावेटर",
+        name: "Rotavator Machine",
+        nameHi: "रोटावेटर मशीन",
+        nameMr: "रोटावेटर मशीन",
         category: "cultivator",
         price: 800,
         location: "Satara, Maharashtra",
         locationHi: "सतारा, महाराष्ट्र",
         locationMr: "सातारा, महाराष्ट्र",
-        description: "6-foot heavy-duty rotavator for intensive soil tilling and mixing",
-        descriptionHi: "गहन मिट्टी की जुताई और मिश्रण के लिए 6-फुट हेवी-ड्यूटी रोटावेटर",
-        descriptionMr: "सखोल मातीच्या कसणी आणि मिश्रणासाठी 6-फूट हेवी-ड्यूटी रोटावेटर",
+        description: "Heavy-duty rotavator for soil tilling",
+        descriptionHi: "मिट्टी की जुताई के लिए हेवी-ड्यूटी रोटावेटर",
+        descriptionMr: "मातीच्या कसणीसाठी हेवी-ड्यूटी रोटावेटर",
         available: true,
         year: 2020,
         owner: "Vikram Patil",
         ownerPhone: "+91 98765 66666",
-        specifications: "6-foot working width, PTO driven, heavy duty blades",
-        model3d: "rotavator"
-    },
-    {
-        id: 7,
-        name: "Agricultural Sprayer",
-        nameHi: "कृषि स्प्रेयर",
-        nameMr: "कृषी स्प्रेयर",
-        category: "sprayer",
-        price: 600,
-        location: "Sangli, Maharashtra",
-        locationHi: "सांगली, महाराष्ट्र",
-        locationMr: "सांगली, महाराष्ट्र",
-        description: "500-liter tank sprayer for pesticide and fertilizer application",
-        descriptionHi: "कीटनाशक और उर्वरक प्रयोग के लिए 500-लीटर टैंक स्प्रेयर",
-        descriptionMr: "कीटकनाशक आणि खत प्रयोगासाठी 500-लिटर टाकी स्प्रेयर",
-        available: true,
-        year: 2022,
-        owner: "Sunita Jadhav",
-        ownerPhone: "+91 98765 77777",
-        specifications: "500L tank, boom sprayer, adjustable pressure, GPS guided",
-        model3d: "sprayer"
-    },
-    {
-        id: 8,
-        name: "Wheat Thresher",
-        nameHi: "गेहूं थ्रेशर",
-        nameMr: "गहू थ्रेशर",
-        category: "thresher",
-        price: 900,
-        location: "Ahmednagar, Maharashtra",
-        locationHi: "अहमदनगर, महाराष्ट्र",
-        locationMr: "अहमदनगर, महाराष्ट्र",
-        description: "High-capacity wheat thresher for efficient grain separation",
-        descriptionHi: "कुशल अनाज पृथक्करण के लिए उच्च क्षमता गेहूं थ्रेशर",
-        descriptionMr: "कार्यक्षम धान्य पृथक्करणासाठी उच्च क्षमता गहू थ्रेशर",
-        available: true,
-        year: 2021,
-        owner: "Ravi Desai",
-        ownerPhone: "+91 98765 88888",
-        specifications: "High capacity, multi-crop thresher, diesel engine, mobile",
-        model3d: "thresher"
-    },
-    {
-        id: 9,
-        name: "Brush Cutter Mower",
-        nameHi: "ब्रश कटर मावर",
-        nameMr: "ब्रश कटर मोवर",
-        category: "mower",
-        price: 350,
-        location: "Latur, Maharashtra",
-        locationHi: "लातूर, महाराष्ट्र",
-        locationMr: "लातूर, महाराष्ट्र",
-        description: "Rotary brush cutter for grass cutting and field maintenance",
-        descriptionHi: "घास काटने और खेत के रखरखाव के लिए रोटरी ब्रश कटर",
-        descriptionMr: "गवत कापणी आणि शेत देखभालीसाठी रोटरी ब्रश कटर",
-        available: true,
-        year: 2023,
-        owner: "Mangesh Bhosale",
-        ownerPhone: "+91 98765 99999",
-        specifications: "Rotary cutter, 5-foot cutting width, side discharge",
-        model3d: "mower"
-    },
-    {
-        id: 10,
-        name: "Disc Harrow",
-        nameHi: "डिस्क हैरो",
-        nameMr: "डिस्क हॅरो",
-        category: "harrow",
-        price: 450,
-        location: "Jalgaon, Maharashtra",
-        locationHi: "जलगांव, महाराष्ट्र",
-        locationMr: "जळगाव, महाराष्ट्र",
-        description: "20-disc harrow for breaking soil clods and field preparation",
-        descriptionHi: "मिट्टी के ढेले तोड़ने और खेत की तैयारी के लिए 20-डिस्क हैरो",
-        descriptionMr: "मातीचे गुळे तोडण्यासाठी आणि शेत तयारीसाठी 20-डिस्क हॅरो",
-        available: false,
-        year: 2020,
-        owner: "Ashok Patil",
-        ownerPhone: "+91 98765 00000",
-        specifications: "20-disc harrow, adjustable depth, heavy duty construction",
-        model3d: "harrow"
+        specifications: "6-foot working width, PTO driven",
+        images: [
+            "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='rotavatorGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23FF4500'/><stop offset='100%' stop-color='%23DC143C'/></linearGradient></defs><rect fill='%23FFE4B5' width='400' height='300'/><rect fill='url(%23rotavatorGrad)' x='40' y='110' width='320' height='70' rx='10'/><g fill='%23333'><circle cx='80' cy='200' r='12'/><circle cx='120' cy='200' r='12'/><circle cx='160' cy='200' r='12'/><circle cx='200' cy='200' r='12'/><circle cx='240' cy='200' r='12'/><circle cx='280' cy='200' r='12'/><circle cx='320' cy='200' r='12'/></g><g fill='%23666'><rect x='70' y='185' width='20' height='30' rx='10'/><rect x='110' y='185' width='20' height='30' rx='10'/><rect x='150' y='185' width='20' height='30' rx='10'/><rect x='190' y='185' width='20' height='30' rx='10'/><rect x='230' y='185' width='20' height='30' rx='10'/><rect x='270' y='185' width='20' height='30' rx='10'/><rect x='310' y='185' width='20' height='30' rx='10'/></g><circle fill='%23333' cx='70' cy='240' r='20' stroke='%23666' stroke-width='2'/><circle fill='%23333' cx='330' cy='240' r='20' stroke='%23666' stroke-width='2'/><rect fill='%23FFD700' x='50' y='90' width='300' height='25' rx='8'/><text x='200' y='150' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>ROTAVATOR</text><text x='200' y='280' text-anchor='middle' fill='%23333' font-size='14' font-weight='bold'>Main View</text></svg>"
+        ]
     }
 ];
 
@@ -221,7 +159,6 @@ function initializeApp() {
     updateLanguage();
     setupEventListeners();
     setupDateInputs();
-    animate3DModels();
 }
 
 function setupEventListeners() {
@@ -243,19 +180,6 @@ function setupEventListeners() {
         fromDateInput.addEventListener('change', calculateBookingTotal);
         toDateInput.addEventListener('change', calculateBookingTotal);
     }
-
-    // Equipment 3D model interactions
-    document.addEventListener('mouseover', function(event) {
-        if (event.target.closest('.equipment-3d-model')) {
-            event.target.closest('.equipment-3d-model').style.transform = 'rotateY(25deg) rotateX(15deg) scale(1.05)';
-        }
-    });
-
-    document.addEventListener('mouseout', function(event) {
-        if (event.target.closest('.equipment-3d-model')) {
-            event.target.closest('.equipment-3d-model').style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
-        }
-    });
 }
 
 function setupDateInputs() {
@@ -267,25 +191,16 @@ function setupDateInputs() {
     });
 }
 
-function animate3DModels() {
-    const models = document.querySelectorAll('.equipment-3d-model');
-    models.forEach((model, index) => {
-        setTimeout(() => {
-            model.style.opacity = '1';
-            model.style.transform = 'translateY(0)';
-        }, index * 200);
-    });
-}
-
 // Language Management
 function changeLanguage() {
     const select = document.getElementById('languageSelect');
     currentLanguage = select.value;
     updateLanguage();
-    updateEquipmentGrid();
+    updateEquipmentGrid(); // Refresh equipment grid with new language
 }
 
 function updateLanguage() {
+    // Update text content
     const elements = document.querySelectorAll('[data-' + currentLanguage + ']');
     elements.forEach(element => {
         const text = element.getAttribute('data-' + currentLanguage);
@@ -294,6 +209,7 @@ function updateLanguage() {
         }
     });
 
+    // Update placeholders
     const placeholderElements = document.querySelectorAll('[data-' + currentLanguage + '-placeholder]');
     placeholderElements.forEach(element => {
         const placeholder = element.getAttribute('data-' + currentLanguage + '-placeholder');
@@ -302,6 +218,7 @@ function updateLanguage() {
         }
     });
 
+    // Update select options
     const selectOptions = document.querySelectorAll('option[data-' + currentLanguage + ']');
     selectOptions.forEach(option => {
         const text = option.getAttribute('data-' + currentLanguage);
@@ -311,7 +228,7 @@ function updateLanguage() {
     });
 }
 
-// Equipment Management with 3D Models
+// Equipment Management
 function updateEquipmentGrid() {
     const homeGrid = document.getElementById('equipmentGrid');
     const allGrid = document.getElementById('allEquipmentGrid');
@@ -322,25 +239,25 @@ function updateEquipmentGrid() {
     if (allGrid) {
         allGrid.innerHTML = createEquipmentCards(filteredEquipment);
     }
-    
-    // Re-initialize 3D model animations
-    setTimeout(animate3DModels, 100);
 }
 
 function createEquipmentCards(equipment) {
     if (!equipment || equipment.length === 0) {
-        return `<div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
-            <h3>${getTranslation('No equipment found', 'कोई उपकरण नहीं मिला', 'कोणतीही उपकरणे सापडली नाहीत')}</h3>
-            <p>${getTranslation('Try adjusting your search filters', 'अपने खोज फ़िल्टर को समायोजित करने का प्रयास करें', 'तुमचे शोध फिल्टर समायोजित करण्याचा प्रयत्न करा')}</p>
+        return `<div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+            <p>${getTranslation('No equipment found', 'कोई उपकरण नहीं मिला', 'कोणतीही उपकरणे सापडली नाहीत')}</p>
         </div>`;
     }
 
     return equipment.map(item => `
         <div class="equipment-card">
-            <div class="equipment-3d-container">
-                <div class="equipment-3d-model" style="opacity: 0; transform: translateY(20px); transition: all 0.5s ease;">
-                    ${create3DModel(item)}
-                </div>
+            <div class="equipment-slider" id="slider-${item.id}">
+                ${item.images.map((img, index) => `
+                    <img src="${img}" alt="${getItemName(item)}" class="${index === 0 ? 'active' : ''}" />
+                `).join('')}
+                ${item.images.length > 1 ? `
+                    <button class="slider-nav slider-prev" onclick="changeSlide(${item.id}, -1)">‹</button>
+                    <button class="slider-nav slider-next" onclick="changeSlide(${item.id}, 1)">›</button>
+                ` : ''}
             </div>
             <div class="equipment-info">
                 <h3>${getItemName(item)}</h3>
@@ -352,17 +269,12 @@ function createEquipmentCards(equipment) {
                         getTranslation('Rented', 'किराए पर', 'भाड्याने')
                     }
                 </div>
-                <p style="margin-bottom: 1rem;">${getItemDescription(item)}</p>
-                <div style="margin-bottom: 1.5rem; font-size: 0.9rem; color: #666;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                        <div><strong>${getTranslation('Year', 'वर्ष', 'वर्ष')}:</strong> ${item.year}</div>
-                        <div><strong>${getTranslation('Owner', 'मालिक', 'मालक')}:</strong> ${item.owner}</div>
-                    </div>
-                    <div style="margin-top: 0.5rem;">
-                        <strong>${getTranslation('Specs', 'विशेषताएं', 'वैशिष्ट्ये')}:</strong> ${item.specifications}
-                    </div>
+                <p>${getItemDescription(item)}</p>
+                <div style="margin-top: 1rem;">
+                    <small><strong>${getTranslation('Year', 'वर्ष', 'वर्ष')}:</strong> ${item.year}</small><br>
+                    <small><strong>${getTranslation('Owner', 'मालिक', 'मालक')}:</strong> ${item.owner}</small>
                 </div>
-                <button class="btn btn-primary" onclick="bookEquipment(${item.id})" ${!item.available ? 'disabled' : ''} style="width: 100%;">
+                <button class="btn btn-primary" onclick="bookEquipment(${item.id})" ${!item.available ? 'disabled' : ''} style="margin-top: 1rem; width: 100%;">
                     ${getTranslation('Book Now', 'बुक करें', 'बुक करा')}
                 </button>
             </div>
@@ -370,655 +282,6 @@ function createEquipmentCards(equipment) {
     `).join('');
 }
 
-// 3D Model Creation Functions
-function create3DModel(item) {
-    switch(item.model3d) {
-        case 'tractor':
-            return createTractor3D();
-        case 'harvester':
-            return createHarvester3D();
-        case 'cultivator':
-            return createCultivator3D();
-        case 'seeder':
-            return createSeeder3D();
-        case 'plough':
-            return createPlough3D();
-        case 'rotavator':
-            return createRotavator3D();
-        case 'sprayer':
-            return createSprayer3D();
-        case 'thresher':
-            return createThresher3D();
-        case 'mower':
-            return createMower3D();
-        case 'harrow':
-            return createHarrow3D();
-        default:
-            return createTractor3D();
-    }
-}
-
-function createTractor3D() {
-    return `
-        <div class="tractor-3d">
-            <div class="tractor-body"></div>
-            <div class="tractor-cabin"></div>
-            <div class="tractor-wheel front"></div>
-            <div class="tractor-wheel rear"></div>
-        </div>
-    `;
-}
-
-function createHarvester3D() {
-    return `
-        <div class="harvester-3d">
-            <div class="harvester-body"></div>
-            <div class="harvester-header"></div>
-            <div class="harvester-cabin"></div>
-            <div class="harvester-wheel front"></div>
-            <div class="harvester-wheel rear"></div>
-        </div>
-    `;
-}
-
-function createCultivator3D() {
-    return `
-        <div class="cultivator-3d">
-            <div class="cultivator-frame"></div>
-            <div class="cultivator-hitch"></div>
-            <div class="cultivator-tines">
-                <div class="cultivator-tine"></div>
-                <div class="cultivator-tine"></div>
-                <div class="cultivator-tine"></div>
-                <div class="cultivator-tine"></div>
-                <div class="cultivator-tine"></div>
-                <div class="cultivator-tine"></div>
-                <div class="cultivator-tine"></div>
-            </div>
-        </div>
-    `;
-}
-
-function createSeeder3D() {
-    return `
-        <div class="seeder-3d">
-            <div class="seeder-frame"></div>
-            <div class="seeder-hoppers">
-                <div class="seeder-hopper"></div>
-                <div class="seeder-hopper"></div>
-                <div class="seeder-hopper"></div>
-                <div class="seeder-hopper"></div>
-                <div class="seeder-hopper"></div>
-            </div>
-            <div class="seeder-discs">
-                <div class="seeder-disc"></div>
-                <div class="seeder-disc"></div>
-                <div class="seeder-disc"></div>
-                <div class="seeder-disc"></div>
-            </div>
-        </div>
-    `;
-}
-
-function createPlough3D() {
-    return `
-        <div class="plough-3d">
-            <div class="plough-frame">
-                <div class="plough-share"></div>
-                <div class="plough-share" style="left: 40px;"></div>
-                <div class="plough-share" style="left: 80px;"></div>
-                <div class="plough-moldboard"></div>
-                <div class="plough-moldboard" style="left: 40px;"></div>
-                <div class="plough-moldboard" style="left: 80px;"></div>
-            </div>
-            <div class="plough-hitch"></div>
-        </div>
-        <style>
-        .plough-3d {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .plough-frame {
-            width: 160px;
-            height: 40px;
-            background: linear-gradient(145deg, #8D6E63, #5D4037);
-            border-radius: 8px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.3);
-        }
-        .plough-share {
-            width: 20px;
-            height: 40px;
-            background: linear-gradient(145deg, #424242, #212121);
-            position: absolute;
-            bottom: -30px;
-            left: 20px;
-            clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
-        }
-        .plough-moldboard {
-            width: 25px;
-            height: 30px;
-            background: linear-gradient(145deg, #616161, #424242);
-            border-radius: 0 0 15px 5px;
-            position: absolute;
-            bottom: -25px;
-            left: 25px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-        }
-        .plough-hitch {
-            width: 30px;
-            height: 15px;
-            background: linear-gradient(145deg, #FFD700, #FFA000);
-            border-radius: 8px;
-            position: absolute;
-            top: 20%;
-            left: 15px;
-            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.3);
-        }
-        </style>
-    `;
-}
-
-function createRotavator3D() {
-    return `
-        <div class="rotavator-3d">
-            <div class="rotavator-frame"></div>
-            <div class="rotavator-gearbox"></div>
-            <div class="rotavator-blades">
-                <div class="rotavator-blade"></div>
-                <div class="rotavator-blade"></div>
-                <div class="rotavator-blade"></div>
-                <div class="rotavator-blade"></div>
-                <div class="rotavator-blade"></div>
-                <div class="rotavator-blade"></div>
-            </div>
-            <div class="rotavator-shield"></div>
-        </div>
-        <style>
-        .rotavator-3d {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .rotavator-frame {
-            width: 180px;
-            height: 50px;
-            background: linear-gradient(145deg, #FF5722, #D84315);
-            border-radius: 10px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: inset 0 -12px 24px rgba(0,0,0,0.2), 0 6px 12px rgba(0,0,0,0.3);
-        }
-        .rotavator-gearbox {
-            width: 60px;
-            height: 40px;
-            background: linear-gradient(145deg, #424242, #212121);
-            border-radius: 8px;
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3), 0 5px 10px rgba(0,0,0,0.4);
-        }
-        .rotavator-blades {
-            position: absolute;
-            bottom: -30px;
-            left: 20px;
-            width: 140px;
-            height: 30px;
-        }
-        .rotavator-blade {
-            width: 20px;
-            height: 25px;
-            background: linear-gradient(145deg, #616161, #424242);
-            border-radius: 3px;
-            position: absolute;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            animation: rotateBlade 2s linear infinite;
-        }
-        .rotavator-blade:nth-child(1) { left: 0px; animation-delay: 0s; }
-        .rotavator-blade:nth-child(2) { left: 25px; animation-delay: 0.3s; }
-        .rotavator-blade:nth-child(3) { left: 50px; animation-delay: 0.6s; }
-        .rotavator-blade:nth-child(4) { left: 75px; animation-delay: 0.9s; }
-        .rotavator-blade:nth-child(5) { left: 100px; animation-delay: 1.2s; }
-        .rotavator-blade:nth-child(6) { left: 125px; animation-delay: 1.5s; }
-        .rotavator-shield {
-            width: 160px;
-            height: 20px;
-            background: linear-gradient(145deg, #8D6E63, #5D4037);
-            border-radius: 10px 10px 0 0;
-            position: absolute;
-            bottom: 5px;
-            left: 60px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-        }
-        @keyframes rotateBlade {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        </style>
-    `;
-}
-
-function createSprayer3D() {
-    return `
-        <div class="sprayer-3d">
-            <div class="sprayer-tank"></div>
-            <div class="sprayer-pump"></div>
-            <div class="sprayer-boom">
-                <div class="sprayer-nozzle"></div>
-                <div class="sprayer-nozzle"></div>
-                <div class="sprayer-nozzle"></div>
-                <div class="sprayer-nozzle"></div>
-                <div class="sprayer-nozzle"></div>
-            </div>
-            <div class="sprayer-wheels">
-                <div class="sprayer-wheel"></div>
-                <div class="sprayer-wheel"></div>
-            </div>
-        </div>
-        <style>
-        .sprayer-3d {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .sprayer-tank {
-            width: 120px;
-            height: 80px;
-            background: linear-gradient(145deg, #2196F3, #1565C0);
-            border-radius: 60px;
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: inset 0 -20px 40px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.3);
-        }
-        .sprayer-tank::before {
-            content: '500L';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        .sprayer-pump {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(145deg, #FF9800, #F57C00);
-            border-radius: 5px;
-            position: absolute;
-            top: 30%;
-            right: 40px;
-            box-shadow: inset 0 -8px 16px rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.3);
-        }
-        .sprayer-boom {
-            width: 200px;
-            height: 15px;
-            background: linear-gradient(145deg, #4CAF50, #2E7D32);
-            border-radius: 8px;
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-        }
-        .sprayer-nozzle {
-            width: 8px;
-            height: 15px;
-            background: linear-gradient(145deg, #FFD700, #FFA000);
-            border-radius: 0 0 4px 4px;
-            position: absolute;
-            bottom: -10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .sprayer-nozzle:nth-child(1) { left: 20px; }
-        .sprayer-nozzle:nth-child(2) { left: 60px; }
-        .sprayer-nozzle:nth-child(3) { left: 100px; }
-        .sprayer-nozzle:nth-child(4) { left: 140px; }
-        .sprayer-nozzle:nth-child(5) { left: 180px; }
-        .sprayer-wheels {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-        }
-        .sprayer-wheel {
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, #424242, #212121);
-            border-radius: 50%;
-            border: 4px solid #616161;
-            position: absolute;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.4);
-        }
-        .sprayer-wheel:first-child { left: 0; }
-        .sprayer-wheel:last-child { right: 0; }
-        </style>
-    `;
-}
-
-function createThresher3D() {
-    return `
-        <div class="thresher-3d">
-            <div class="thresher-body"></div>
-            <div class="thresher-cylinder"></div>
-            <div class="thresher-fan"></div>
-            <div class="thresher-sieve"></div>
-            <div class="thresher-outlet"></div>
-            <div class="thresher-wheels">
-                <div class="thresher-wheel"></div>
-                <div class="thresher-wheel"></div>
-            </div>
-        </div>
-        <style>
-        .thresher-3d {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .thresher-body {
-            width: 200px;
-            height: 80px;
-            background: linear-gradient(145deg, #FF5722, #D84315);
-            border-radius: 15px;
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: inset 0 -15px 30px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.3);
-        }
-        .thresher-cylinder {
-            width: 120px;
-            height: 30px;
-            background: linear-gradient(145deg, #424242, #212121);
-            border-radius: 15px;
-            position: absolute;
-            top: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: inset 0 -8px 16px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.4);
-            animation: thresherRotate 3s linear infinite;
-        }
-        .thresher-fan {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(145deg, #616161, #424242);
-            border-radius: 50%;
-            position: absolute;
-            top: 30%;
-            right: 30px;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3), 0 5px 10px rgba(0,0,0,0.4);
-            animation: thresherFan 1s linear infinite;
-        }
-        .thresher-fan::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 60%;
-            height: 2px;
-            background: #757575;
-            transform: translate(-50%, -50%);
-        }
-        .thresher-fan::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 2px;
-            height: 60%;
-            background: #757575;
-            transform: translate(-50%, -50%);
-        }
-        .thresher-sieve {
-            width: 160px;
-            height: 20px;
-            background: linear-gradient(145deg, #8D6E63, #5D4037);
-            border-radius: 5px;
-            position: absolute;
-            bottom: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-        }
-        .thresher-outlet {
-            width: 40px;
-            height: 60px;
-            background: linear-gradient(145deg, #FF9800, #F57C00);
-            border-radius: 0 0 20px 20px;
-            position: absolute;
-            bottom: 15%;
-            right: 40px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        .thresher-wheels {
-            position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140px;
-        }
-        .thresher-wheel {
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #424242, #212121);
-            border-radius: 50%;
-            border: 5px solid #616161;
-            position: absolute;
-            box-shadow: inset 0 -12px 24px rgba(0,0,0,0.5), 0 5px 10px rgba(0,0,0,0.4);
-        }
-        .thresher-wheel:first-child { left: 0; }
-        .thresher-wheel:last-child { right: 0; }
-        @keyframes thresherRotate {
-            0% { transform: translateX(-50%) rotate(0deg); }
-            100% { transform: translateX(-50%) rotate(360deg); }
-        }
-        @keyframes thresherFan {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        </style>
-    `;
-}
-
-function createMower3D() {
-    return `
-        <div class="mower-3d">
-            <div class="mower-deck"></div>
-            <div class="mower-blade"></div>
-            <div class="mower-guard"></div>
-            <div class="mower-hitch"></div>
-            <div class="mower-wheels">
-                <div class="mower-wheel"></div>
-                <div class="mower-wheel"></div>
-            </div>
-        </div>
-        <style>
-        .mower-3d {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .mower-deck {
-            width: 180px;
-            height: 60px;
-            background: linear-gradient(145deg, #4CAF50, #2E7D32);
-            border-radius: 30px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: inset 0 -15px 30px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.3);
-        }
-        .mower-blade {
-            width: 120px;
-            height: 8px;
-            background: linear-gradient(145deg, #616161, #424242);
-            border-radius: 4px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-            animation: mowerBlade 2s linear infinite;
-        }
-        .mower-blade::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 8px;
-            height: 120px;
-            background: linear-gradient(145deg, #616161, #424242);
-            border-radius: 4px;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        }
-        .mower-guard {
-            width: 200px;
-            height: 25px;
-            background: linear-gradient(145deg, #FF9800, #F57C00);
-            border-radius: 15px;
-            position: absolute;
-            bottom: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-        }
-        .mower-hitch {
-            width: 40px;
-            height: 20px;
-            background: linear-gradient(145deg, #FFD700, #FFA000);
-            border-radius: 10px;
-            position: absolute;
-            top: 20%;
-            left: 20px;
-            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.3);
-        }
-        .mower-wheels {
-            position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-        }
-        .mower-wheel {
-            width: 35px;
-            height: 35px;
-            background: radial-gradient(circle, #424242, #212121);
-            border-radius: 50%;
-            border: 3px solid #616161;
-            position: absolute;
-            box-shadow: inset 0 -8px 16px rgba(0,0,0,0.5), 0 3px 6px rgba(0,0,0,0.4);
-        }
-        .mower-wheel:first-child { left: 0; }
-        .mower-wheel:last-child { right: 0; }
-        @keyframes mowerBlade {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        </style>
-    `;
-}
-
-function createHarrow3D() {
-    return `
-        <div class="harrow-3d">
-            <div class="harrow-frame"></div>
-            <div class="harrow-discs">
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-                <div class="harrow-disc"></div>
-            </div>
-            <div class="harrow-hitch"></div>
-        </div>
-        <style>
-        .harrow-3d {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .harrow-frame {
-            width: 200px;
-            height: 40px;
-            background: linear-gradient(145deg, #8D6E63, #5D4037);
-            border-radius: 8px;
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.3);
-        }
-        .harrow-discs {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .harrow-disc {
-            width: 30px;
-            height: 35px;
-            background: radial-gradient(ellipse, #616161, #424242);
-            border-radius: 50%;
-            border: 2px solid #757575;
-            position: relative;
-            box-shadow: inset 0 -8px 16px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.3);
-            animation: harrowDisc 3s linear infinite;
-        }
-        .harrow-disc:nth-child(even) {
-            animation-direction: reverse;
-        }
-        .harrow-disc::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 60%;
-            height: 2px;
-            background: #757575;
-            transform: translate(-50%, -50%);
-        }
-        .harrow-hitch {
-            width: 50px;
-            height: 20px;
-            background: linear-gradient(145deg, #FFD700, #FFA000);
-            border-radius: 10px;
-            position: absolute;
-            top: 25%;
-            left: 20px;
-            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.3);
-        }
-        @keyframes harrowDisc {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        </style>
-    `;
-}
-
-// Helper Functions
 function getItemName(item) {
     return currentLanguage === 'hi' ? item.nameHi : 
            currentLanguage === 'mr' ? item.nameMr : 
@@ -1043,6 +306,25 @@ function getTranslation(en, hi, mr) {
            en;
 }
 
+// Image Slider
+function changeSlide(equipmentId, direction) {
+    const slider = document.getElementById(`slider-${equipmentId}`);
+    if (!slider) return;
+
+    const images = slider.querySelectorAll('img');
+    if (images.length <= 1) return;
+
+    let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+    
+    images[currentIndex].classList.remove('active');
+    currentIndex += direction;
+    
+    if (currentIndex >= images.length) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    
+    images[currentIndex].classList.add('active');
+}
+
 // Page Navigation
 function showPage(page) {
     const pages = document.querySelectorAll('.page, .dashboard');
@@ -1062,7 +344,7 @@ function showModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
     }
 }
 
@@ -1070,11 +352,11 @@ function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = 'auto'; // Restore scroll
     }
 }
 
-// Authentication Functions
+// Authentication
 function login(event) {
     event.preventDefault();
     
@@ -1087,6 +369,7 @@ function login(event) {
         return;
     }
     
+    // Simulate login
     currentUser = {
         email: email,
         type: userType,
@@ -1121,6 +404,7 @@ function register(event) {
         return;
     }
     
+    // Simulate registration
     currentUser = {
         name: name,
         email: email,
@@ -1187,23 +471,22 @@ function bookEquipment(equipmentId) {
     
     const bookingDetails = document.getElementById('bookingDetails');
     bookingDetails.innerHTML = `
-        <div style="padding: 1.5rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; margin: 1rem 0; border: 1px solid rgba(76, 175, 80, 0.1);">
-            <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
-                <div style="font-size: 3rem;">🚜</div>
+        <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px; margin: 1rem 0;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <div style="font-size: 2rem;">🚜</div>
                 <div>
-                    <h3 style="margin: 0; color: #1a4d1a; font-weight: bold;">${getItemName(currentEquipment)}</h3>
-                    <p style="margin: 0; color: #4CAF50; font-size: 1.2rem; font-weight: bold;">₹${currentEquipment.price.toLocaleString()}/day</p>
+                    <h3 style="margin: 0; color: #2c5530;">${getItemName(currentEquipment)}</h3>
+                    <p style="margin: 0; color: #666;"><strong>₹${currentEquipment.price.toLocaleString()}</strong>/day</p>
                 </div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.95rem;">
+            <div style="grid-template-columns: 1fr 1fr; gap: 1rem; display: grid; font-size: 0.9rem;">
                 <div><strong>${getTranslation('Location', 'स्थान', 'ठिकाण')}:</strong> ${getItemLocation(currentEquipment)}</div>
                 <div><strong>${getTranslation('Owner', 'मालिक', 'मालक')}:</strong> ${currentEquipment.owner}</div>
                 <div><strong>${getTranslation('Year', 'वर्ष', 'वर्ष')}:</strong> ${currentEquipment.year}</div>
                 <div><strong>${getTranslation('Phone', 'फोन', 'फोन')}:</strong> ${currentEquipment.ownerPhone}</div>
             </div>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(76, 175, 80, 0.2);">
-                <strong>${getTranslation('Specifications', 'विशेषताएं', 'वैशिष्ट्ये')}:</strong> 
-                <span style="color: #666;">${currentEquipment.specifications}</span>
+            <div style="margin-top: 1rem;">
+                <strong>${getTranslation('Specifications', 'विशेषताएं', 'वैशिष्ट्ये')}:</strong> ${currentEquipment.specifications}
             </div>
         </div>
     `;
@@ -1226,7 +509,7 @@ function calculateBookingTotal() {
     
     if (to <= from) {
         calculationDiv.innerHTML = `
-            <div style="color: #F44336; font-weight: 600; padding: 1rem; background: rgba(244, 67, 54, 0.1); border-radius: 10px;">
+            <div style="color: #dc3545; font-weight: 600;">
                 ${getTranslation('End date must be after start date', 'समाप्ति दिनांक प्रारंभ दिनांक के बाद होना चाहिए', 'समाप्ती दिनांक सुरुवातीच्या दिनांकानंतर असावा')}
             </div>
         `;
@@ -1236,33 +519,33 @@ function calculateBookingTotal() {
     const days = Math.ceil((to - from) / (1000 * 60 * 60 * 24));
     const dailyRate = currentEquipment.price;
     const subtotal = days * dailyRate;
-    const tax = subtotal * 0.18;
+    const tax = subtotal * 0.18; // 18% GST
     const total = subtotal + tax;
     
     calculationDiv.innerHTML = `
-        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 15px; border-left: 5px solid #4CAF50;">
-            <h4 style="margin: 0 0 1rem 0; color: #1a4d1a; font-weight: bold;">${getTranslation('Booking Summary', 'बुकिंग सारांश', 'बुकिंग सारांश')}</h4>
-            <div style="display: grid; gap: 0.8rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-weight: 500;">${getTranslation('Duration', 'अवधि', 'कालावधी')}:</span>
-                    <strong style="color: #4CAF50;">${days} ${getTranslation('days', 'दिन', 'दिवस')}</strong>
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #28a745;">
+            <h4 style="margin: 0 0 1rem 0; color: #2c5530;">${getTranslation('Booking Summary', 'बुकिंग सारांश', 'बुकिंग सारांश')}</h4>
+            <div style="display: grid; gap: 0.5rem;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>${getTranslation('Duration', 'अवधि', 'कालावधी')}:</span>
+                    <strong>${days} ${getTranslation('days', 'दिन', 'दिवस')}</strong>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; justify-content: space-between;">
                     <span>${getTranslation('Daily Rate', 'दैनिक दर', 'दैनंदिन दर')}:</span>
                     <span>₹${dailyRate.toLocaleString()}</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; justify-content: space-between;">
                     <span>${getTranslation('Subtotal', 'उप-योग', 'उप-एकूण')}:</span>
                     <span>₹${subtotal.toLocaleString()}</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; justify-content: space-between;">
                     <span>GST (18%):</span>
                     <span>₹${Math.round(tax).toLocaleString()}</span>
                 </div>
-                <hr style="margin: 0.8rem 0; border: none; border-top: 2px solid rgba(76, 175, 80, 0.2);">
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; font-weight: bold; color: #1a4d1a;">
+                <hr style="margin: 0.5rem 0;">
+                <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: bold; color: #2c5530;">
                     <span>${getTranslation('Total Amount', 'कुल राशि', 'एकूण रक्कम')}:</span>
-                    <span style="color: #4CAF50;">₹${Math.round(total).toLocaleString()}</span>
+                    <span>₹${Math.round(total).toLocaleString()}</span>
                 </div>
             </div>
         </div>
@@ -1309,22 +592,25 @@ function confirmBooking(event) {
         'success'
     );
     
+    // Reset form
     document.getElementById('bookingForm').reset();
 }
 
-// Search and Filter Functions
+// Search and Filter
 function searchEquipment(event) {
     event.preventDefault();
     
     const type = document.getElementById('searchType').value;
     const location = document.getElementById('searchLocation').value.toLowerCase();
     const maxPrice = parseInt(document.getElementById('searchPrice').value) || Infinity;
+    const fromDate = document.getElementById('searchFromDate').value;
+    const toDate = document.getElementById('searchToDate').value;
     
     filteredEquipment = equipmentData.filter(item => {
         const matchesType = !type || item.category === type;
         const matchesLocation = !location || item.location.toLowerCase().includes(location);
         const matchesPrice = item.price <= maxPrice;
-        const matchesAvailability = item.available;
+        const matchesAvailability = item.available; // Only show available equipment in search
         
         return matchesType && matchesLocation && matchesPrice && matchesAvailability;
     });
@@ -1350,13 +636,14 @@ function filterEquipment() {
         return !category || item.category === category;
     });
     
+    // Sort equipment
     filteredEquipment.sort((a, b) => {
         switch (sortBy) {
             case 'price':
                 return a.price - b.price;
             case 'availability':
                 return b.available - a.available;
-            default:
+            default: // name
                 return a.name.localeCompare(b.name);
         }
     });
@@ -1364,6 +651,7 @@ function filterEquipment() {
     updateEquipmentGrid();
 }
 
+// Add Equipment (for owners)
 function addEquipment(event) {
     event.preventDefault();
     
@@ -1372,9 +660,11 @@ function addEquipment(event) {
         return;
     }
     
+    // In a real app, this would send data to a server
     closeModal('addEquipmentModal');
     showNotification(getTranslation('Equipment added successfully!', 'उपकरण सफलतापूर्वक जोड़ा गया!', 'उपकरण यशस्वीरित्या जोडले!'), 'success');
     
+    // Reset form
     document.getElementById('addEquipmentForm').reset();
 }
 
@@ -1386,58 +676,42 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 100px;
         right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#FF9800' : type === 'error' ? '#F44336' : '#2196F3'};
+        background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : type === 'error' ? '#dc3545' : '#17a2b8'};
         color: white;
-        padding: 1.5rem 2rem;
-        border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         z-index: 3000;
-        max-width: 350px;
-        font-weight: 500;
-        animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        backdrop-filter: blur(10px);
+        max-width: 300px;
+        animation: slideInRight 0.3s ease;
     `;
     
     notification.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <span>${message}</span>
-            <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; margin-left: 1rem; opacity: 0.8; transition: opacity 0.2s;">×</button>
+            <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; margin-left: 1rem;">×</button>
         </div>
     `;
     
     document.body.appendChild(notification);
     
+    // Auto remove after 5 seconds
     setTimeout(() => {
         if (notification.parentElement) {
-            notification.style.animation = 'slideOutRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            setTimeout(() => notification.remove(), 400);
+            notification.remove();
         }
     }, 5000);
 }
 
-// Enhanced CSS for notifications
-const notificationStyles = document.createElement('style');
-notificationStyles.textContent = `
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(100%);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
+// Reset filters
+function resetFilters() {
+    filteredEquipment = [...equipmentData];
+    updateEquipmentGrid();
     
-    @keyframes slideOutRight {
-        from {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateX(100%);
-        }
-    }
-`;
-document.head.appendChild(notificationStyles);
+    // Reset filter controls
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    
+    if (categoryFilter) categoryFilter.value = '';
+    if (sortFilter) sortFilter.value = 'name';
+}
