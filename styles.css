@@ -1584,7 +1584,7 @@ footer {
     .payment-options {
         grid-template-columns: 1fr;
     }
-}
+
 
 @media (max-width: 480px) {
     .container {
